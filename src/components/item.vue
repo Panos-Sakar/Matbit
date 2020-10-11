@@ -10,8 +10,7 @@ export default {
   props:["item"],
   methods:{
       markComplete(){
-          // eslint-disable-next-line vue/no-mutating-props
-          this.item.isCompleted = !this.item.isCompleted;
+          console.log("Complited")
       }
   }
 }
