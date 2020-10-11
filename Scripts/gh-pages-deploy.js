@@ -22,7 +22,7 @@ const fs = require("fs");
     console.log("Pushing to gh-pages...");
     await execa("git", ["push", "origin", "HEAD:gh-pages", "--force"]);
     console.log("Deleting dist");
-    await rimraf(folderName, { glob: false })
+    await execa("rimraf", [folderName])
     console.log("Successfully deployed");
   } catch (e) {
     // eslint-disable-next-line no-console
