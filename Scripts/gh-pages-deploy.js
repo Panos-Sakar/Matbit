@@ -6,11 +6,6 @@ const fs = require("fs");
   let exitCode = 0;
   try {
     await execa("git", ["checkout", "--orphan", "gh-pages"]);
-    const { stdout } = await execa("git", ["diff-index", "HEAD"]);
-    if (stdout) {
-        console.log("Please stash or commit changes first!");
-        process.exit(1);
-    }
     // eslint-disable-next-line no-console
     console.log("Building started...");
     await execa("npm", ["run", "build"]);
