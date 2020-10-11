@@ -21,4 +21,4 @@ jobs:
       - name: Run deploy script
         run: |
           git config user.name "Panos-Sakar" && git config user.email "panosxsakar@gmail.com"
-          npm run scripts/gh-pages-deploy.js
+          npm run Matbit/scripts/gh-pages-deploy.js
