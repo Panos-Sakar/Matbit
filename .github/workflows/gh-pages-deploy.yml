@@ -4,6 +4,8 @@ on:
     branches:
       - master
   workflow_dispatch:
+    name: Dispatch depoly to gh-pages
+  
 jobs:
   gh-pages-deploy:
     name: Deploying to gh-pages
