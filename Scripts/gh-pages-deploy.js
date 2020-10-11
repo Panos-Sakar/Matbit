@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 const execa = require("execa");
 const fs = require("fs");
-const rmrf = promisify(rimraf);
 
 (async () => {
   let exitCode = 0;
@@ -23,7 +22,7 @@ const rmrf = promisify(rimraf);
     console.log("Pushing to gh-pages...");
     await execa("git", ["push", "origin", "HEAD:gh-pages", "--force"]);
     console.log("Deleting dist");
-    await rmrf(folderName, { glob: false })
+    await rimraf(folderName, { glob: false })
     console.log("Successfully deployed");
   } catch (e) {
     // eslint-disable-next-line no-console
