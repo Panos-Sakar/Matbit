@@ -1,55 +1,72 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <itemsContainer v-bind:items="items" />
+  <itemCreator v-on:new-item-created="addNewItem"/>
+  <itemsContainer v-bind:items="items" 
+                  v-on:consume-item="consumeItem"
+                  v-on:remove-item="removeItem"/>
 </template>
 
 <script>
-import itemsContainer from './components/itemsContainer.vue'
+  import itemsContainer from './components/itemsContainer.vue'
+  import itemCreator from "./components/itemCreateor"
+  import globalMixin from "./Mixins/globalMixin";
 
-export default {
-  name: 'App',
-  components: {
-    itemsContainer
-  },
-  data(){
-    return{
-      items:[{
-        id: 1,
-        title: "Milk",
-        quantity: 300,
-        quantityType: "ml",
-        isCompleted: false
+  export default {
+    name: 'App',
+    components: {
+      itemCreator,
+      itemsContainer
+    },
+    mixins:[globalMixin],
+    data(){
+      return{
+        items:[]
+      }
+    },
+    created(){
+      let stored = localStorage.getItem(globalMixin.getItemsStorageKey());
+      this.items = JSON.parse(stored, globalMixin.JsonDateParser);
+    },
+    methods:{
+      removeItem(inItem){
+          let items = this.items.filter(item => item !== inItem);
+          localStorage.setItem(globalMixin.getItemsStorageKey(), JSON.stringify(items));
+          this.items = items;
       },
-      {
-        id: 2,
-        title: "Eggs",
-        quantity: 3,
-        quantityType: "",
-        isCompleted: false
+      consumeItem(item){
+          console.log("consume: " + item.name);
       },
-      {
-        id: 3,
-        title: "Bread",
-        quantity: 1,
-        quantityType: "",
-        isCompleted: false
-      }]
+      addNewItem(item){
+        this.items.push(item);
+         localStorage.setItem(globalMixin.getItemsStorageKey(), JSON.stringify(this.items));
+      }
     }
   }
-
-}
 </script>
 
 <style>
+  #app {
+    font-family: 'Muli', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 
-body {background-color: #1a1947;}
+    min-height: 100vh;
+    margin: 0;
+  }
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  body {
+    background-image: linear-gradient(45deg, #7175da, #9790F2);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
 </style>
