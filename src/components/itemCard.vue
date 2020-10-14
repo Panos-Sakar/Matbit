@@ -18,8 +18,9 @@
 		</div>
     </div>
     <div v-if = "!this.hidden" class="consumeCard">
-        <input type="text" class="consumeInput" v-model="consumeValue" placeholder= 0>
+        <input type="text" class="form__field mediumField consumeInput" v-model="consumeValue" placeholder= 0>
         <button class="btn" id="btn-confirmConsume" v-on:click=confirmConsumeClicked()>Ok</button>
+        <button class="btn" id="btn-cancelConsume" v-on:click=cancelConsumeClicked()>Cancel</button>
     </div>
 </template>
 
@@ -51,6 +52,10 @@
                 this.$emit('consume-item', this.item.id, this.consumeValue)
                 this.consumeValue = 1;
             },
+            cancelConsumeClicked(){
+                this.hidden = true;
+                this.consumeValue = 1;
+            },
             calculateProgresPercent(item){
                 let progPercent = this.getDatePercentage(item.date.entered,item.date.expiring);
                 let percentStr = progPercent.toString() + "%";
@@ -75,6 +80,7 @@
 
 <style scoped>
     @import '../styles/itemCard.css';
+    
     .consumeCard{
         text-align: left;
         background-color: var(--white); 
@@ -92,7 +98,7 @@
     }
     #btn-del{
         background-color: #882323;
-        right: 30px;
+        right: 1pc;
     }
     #btn-del:hover{
         background-color: #b42e2e;
@@ -108,19 +114,17 @@
     }
     #btn-consume{
         background-color: #2A265F;
-        right: 140px;
+        right: 7pc;
     }
     #btn-consume:hover{
         background-color: #3c368a;
         box-shadow: 0 13px 13px rgba(0, 0, 0, 0.4);
         transform:scale(1.1,1.1);
-        cursor: pointer;
     }
     #btn-consume:active{
         background-color: #1e1b44;
         box-shadow: 0 6px 6px rgba(0, 0, 0, 0.4);
         transform:scale(0.9,0.9);
-        cursor: pointer;
     }
     #btn-confirmConsume{
         background-color: #2A265F;
@@ -131,12 +135,28 @@
         background-color: #3c368a;
         box-shadow: 0 13px 13px rgba(0, 0, 0, 0.4);
         transform:scale(1.1,1.1);
-        cursor: pointer;
     }
     #btn-confirmConsume:active{
         background-color: #1e1b44;
         box-shadow: 0 6px 6px rgba(0, 0, 0, 0.4);
         transform:scale(0.9,0.9);
-        cursor: pointer;
+    }
+    #btn-cancelConsume{
+        background-color: #2A265F;
+        right: 100px;
+        bottom: 25%;
+    }
+    #btn-cancelConsume:hover{
+        background-color: #3c368a;
+        box-shadow: 0 13px 13px rgba(0, 0, 0, 0.4);
+        transform:scale(1.1,1.1);
+    }
+    #btn-cancelConsume:active{
+        background-color: #1e1b44;
+        box-shadow: 0 6px 6px rgba(0, 0, 0, 0.4);
+        transform:scale(0.9,0.9);
+    }
+    .mediumField{
+        width: 40%
     }
 </style>

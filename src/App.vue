@@ -1,5 +1,4 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
   <itemsContainer v-bind:items="items" 
                   v-on:consume-item="consumeItem"
                   v-on:remove-item="removeItem"

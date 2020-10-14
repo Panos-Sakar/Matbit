@@ -26,14 +26,14 @@
 
 .itemCard h2 {
     letter-spacing: 1px;
-    margin: 10px 0;
+    margin: 0.5pc 0;
 }
 
 .itemName {
     background-color: #2A265F;
     color:var(--white);
     padding: 5%;
-    max-width: 25vw;
+    max-width: 20vw;
     min-width: 20vw;
 }
 
@@ -47,15 +47,15 @@
 }
 
 .itemInfo {
-    padding: 30px;
+    padding: 3.5vh;
     position: relative;
     width: 100%;
 }
 
 .progressContainer {
     position: absolute;
-    top: 30px;
-    right: 30px;
+    top: 3vh;
+    right: 3vh;
     text-align: right;
     width: 150px;
 }
@@ -94,5 +94,24 @@
     letter-spacing: 1px;
     transition-duration: 0.4s;
     position: absolute;
-    bottom: 10px;
+    bottom: 0.4pc;
+    cursor: pointer;
+}
+
+.form__field {
+    appearance: none;
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid var(--gray);
+    outline: 0;
+    font-size: 1.3rem;
+    background: transparent;
+    border-width: 3px;
+    transition: border-color 0.2s;;
+}
+.form__field:focus{ 
+    font-weight: 700;
+    border-image: linear-gradient(to right, var(--primary),var(--secondary));
+    border-image-slice: 1;
 }

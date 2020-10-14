@@ -4,10 +4,7 @@
             <h6>ITEM</h6>
             <h2><input type="text" class="form__field whightText" v-model="newItemValues.name" placeholder="New Item"></h2>
         </div>
-            <div class="itemInfo">
-                <div class="expDate">
-                    <input type="date" v-model="newItemValues.date">
-                </div>
+        <div class="itemInfo">
             <h6>Amount</h6>
             <h2>
                 <input type="text" class="form__field" v-model="newItemValues.quantity.ammount" placeholder="1">
@@ -17,6 +14,9 @@
                         <option value="Kg">Kg</option>
                     </select>
             </h2>
+            <div class="expDate">
+                <input type="date" class = "form__field dateFild" v-model="newItemValues.date">
+            </div>
             <button class="btn" id="btn-add" v-on:click=submitForm()>Add Item</button>
         </div>
     </div>
@@ -83,46 +83,34 @@
         width: 30vw;
     }
 
-    .form__field {
-        appearance: none;
-        font-family: inherit;
-        width: 100%;
-        border: 0;
-        border-bottom: 2px solid var(--gray);
-        outline: 0;
-        font-size: 1.3rem;
-        padding: 7px 0;
-        background: transparent;
-        transition: border-color 0.2s;
-    }
-    .form__field:focus{
-        padding-bottom: 6px;  
-        font-weight: 700;
-        border-width: 3px;
-        border-image: linear-gradient(to right, var(--primary),var(--secondary));
-        border-image-slice: 1;
-    }
     .whightText{
         color:  var(--white);
     }
     .smallField{
         width: 40%;
     }
-
+    .dateFild{
+        width: 35%;
+        font-size: 1rem;
+        border-width: 2px;
+        text-align: right;
+    }
+    .dateFild:active{
+        text-align: center;
+        border-width: 3px;
+    }
     #btn-add{
         background-color: #2A265F;
-        right: 30px;
+        right: 0.8pc;
     }
     #btn-add:hover{
         background-color: #3c368a;
         box-shadow: 0 13px 13px rgba(0, 0, 0, 0.4);
         transform:scale(1.1,1.1);
-        cursor: pointer;
     }
     #btn-add:active{
         background-color: #1e1b44;
         box-shadow: 0 6px 6px rgba(0, 0, 0, 0.4);
         transform:scale(0.9,0.9);
-        cursor: pointer;
     }
 </style>
