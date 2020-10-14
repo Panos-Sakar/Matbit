@@ -32,7 +32,7 @@
                 ammount: '',
                 type: ''
             },
-            date: ''
+            date: new Date().toISOString().slice(0,10)
         }
     }
 
