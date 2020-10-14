@@ -43,95 +43,44 @@
                 newItemValues: newItemTemplate()
             }
         },
+        emits:['new-item-created'],
         methods:{
             submitForm(){
-                let item = {};
+                let newItem = {};
                 
-                item.id = uuid.v4();
-                item.name = this.newItemValues.name;
-                if(item.name == "") item.name = "New Item";
+                newItem.id = uuid.v4();
+                newItem.name = this.newItemValues.name;
+                if(newItem.name == "") newItem.name = "New Item";
 
-                item.type = "Item";
+                newItem.type = "Item";
                 
-                item.quantity = {};
-                item.quantity.ammount = parseInt(this.newItemValues.quantity.ammount);
-                item.quantity.type = this.newItemValues.quantity.type;
-                if(isNaN(item.quantity.ammount)) item.quantity.ammount = 1;
+                newItem.quantity = {};
+                newItem.quantity.ammount = parseInt(this.newItemValues.quantity.ammount);
+                newItem.quantity.type = this.newItemValues.quantity.type;
+                if(isNaN(newItem.quantity.ammount)) newItem.quantity.ammount = 1;
 
-                item.date = {};
-                item.date.entered = new Date(Date.now());
-                item.date.expiring = new Date(this.newItemValues.date);
-                if(isNaN(item.date.expiring)) item.date.expiring = new Date(Date.now());
+                newItem.date = {};
+                newItem.date.entered = new Date(Date.now());
+                newItem.date.expiring = new Date(this.newItemValues.date);
+                if(isNaN(newItem.date.expiring)) newItem.date.expiring = new Date(Date.now());
 
                 this.newItemValues = newItemTemplate();
 
-                this.$emit('new-item-created', item);          
+                this.$emit('new-item-created', newItem);          
             }
         }
     }
 </script>
 
 <style scoped>
-    * {
-        --primary: #11998e;
-        --secondary: #38ef7d;
-        --white: #fff;
-        --gray: #9b9b9b;
-    }
-
-    .itemCard {
-        text-align: left;
-        background-color: var(--white);
-        border-radius: 10px;
-        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-        display: flex;
-        max-width: 100%;
-        margin: 20px;
-        overflow: hidden;
-        width: 700px;
-    }
-
-    .itemCard h6 {
-        opacity: 0.6;
-        margin: 0;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-
-    .itemCard h2 {
-        letter-spacing: 1px;
-        margin: 10px 0;
-    }
-
-    .itemName {
-        background-color: #2A265F;
-        color:var(--white);
-        padding: 30px;
-        max-width: 200px;
-        min-width: 200px;
-    }
-
-    .itemName a {
-        color: var(--white);
-        display: inline-block;
-        font-size: 12px;
-        opacity: 0.6;
-        margin-top: 30px;
-        text-decoration: none;
-    }
-
-    .itemInfo {
-        padding: 30px;
-        position: relative;
-        width: 100%;
-    }
-
+    @import '../styles/itemCard.css';
+    
     .expDate {
         position: absolute;
-        top: 12px;
-        right: 30px;
+        top: 1.5vh;
+        right: 2.5vw;
         text-align: right;
-        width: 150px;
+        width: 30vw;
     }
 
     .form__field {
@@ -158,18 +107,6 @@
     }
     .smallField{
         width: 40%;
-    }
-    .btn{
-        border: 0;
-        border-radius: 50px;
-        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-        color: var(--white);
-        font-size: 16px;
-        padding: 12px 25px;
-        letter-spacing: 1px;
-        transition-duration: 0.4s;
-        position: absolute;
-        bottom: 10px;
     }
 
     #btn-add{

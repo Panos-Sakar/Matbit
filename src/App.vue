@@ -1,20 +1,19 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <itemCreator v-on:new-item-created="addNewItem"/>
   <itemsContainer v-bind:items="items" 
                   v-on:consume-item="consumeItem"
-                  v-on:remove-item="removeItem"/>
+                  v-on:remove-item="removeItem"
+                  v-on:new-item-created="addNewItem"/>
 </template>
 
 <script>
   import itemsContainer from './components/itemsContainer.vue'
-  import itemCreator from "./components/itemCreateor"
+  
   import globalMixin from "./Mixins/globalMixin";
 
   export default {
     name: 'App',
     components: {
-      itemCreator,
       itemsContainer
     },
     mixins:[globalMixin],
@@ -29,16 +28,28 @@
     },
     methods:{
       removeItem(inItem){
-          let items = this.items.filter(item => item !== inItem);
-          localStorage.setItem(globalMixin.getItemsStorageKey(), JSON.stringify(items));
-          this.items = items;
+        let items = this.items.filter(item => item !== inItem);
+        localStorage.setItem(globalMixin.getItemsStorageKey(), JSON.stringify(items));
+        this.items = items;
       },
-      consumeItem(item){
-          console.log("consume: " + item.name);
+      consumeItem(itemID, ammount){
+
+        this.items.forEach(function(item, index, object){
+          
+          if(item.id == itemID) {
+            
+            item.quantity.ammount -= ammount;
+            if(item.quantity.ammount <= 0) object.splice(index, 1);
+            
+          }
+        });
+
+        localStorage.setItem(globalMixin.getItemsStorageKey(), JSON.stringify(this.items));
+        
       },
-      addNewItem(item){
+      addNewItem(newItem){
         let newItems = this.items || [];
-        newItems.push(item);
+        newItems.push(newItem);
         localStorage.setItem(globalMixin.getItemsStorageKey(), JSON.stringify(newItems));
         this.items = newItems;
       }
@@ -53,7 +64,6 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
     
     display: flex;
     align-items: center;
@@ -61,7 +71,6 @@
     flex-direction: column;
 
     min-height: 100vh;
-    margin: 0;
   }
 
   body {
