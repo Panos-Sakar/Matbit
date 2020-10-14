@@ -25,7 +25,6 @@
     },
     created(){
       let stored = localStorage.getItem(globalMixin.getItemsStorageKey());
-      this.items = [];
       this.items = JSON.parse(stored, globalMixin.JsonDateParser);
     },
     methods:{
@@ -38,8 +37,10 @@
           console.log("consume: " + item.name);
       },
       addNewItem(item){
-        this.items.push(item);
-         localStorage.setItem(globalMixin.getItemsStorageKey(), JSON.stringify(this.items));
+        let newItems = this.items || [];
+        newItems.push(item);
+        localStorage.setItem(globalMixin.getItemsStorageKey(), JSON.stringify(newItems));
+        this.items = newItems;
       }
     }
   }
