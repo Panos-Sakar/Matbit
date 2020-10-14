@@ -26,7 +26,7 @@
         props:["item"],
         methods:{
             getDateString(inDate){
-                return inDate.getDate() + "/" + inDate.getMonth() + "/" + inDate.getFullYear();
+                return inDate.getDate() + "/" + (inDate.getMonth() + 1) + "/" + inDate.getFullYear();
             },
             getDatePercentage(startDate, endDate){
                 let startDif = Date.now() - startDate;
