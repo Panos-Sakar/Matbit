@@ -25,6 +25,7 @@
     },
     created(){
       let stored = localStorage.getItem(globalMixin.getItemsStorageKey());
+      this.items = [];
       this.items = JSON.parse(stored, globalMixin.JsonDateParser);
     },
     methods:{
