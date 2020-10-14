@@ -2,6 +2,7 @@ const ITEMS_STORAGE_KEY = "items-storage"
 
 export default{
     getItemsStorageKey(){
+        console.log("storege request:" + ITEMS_STORAGE_KEY);
         return ITEMS_STORAGE_KEY;
     },
     JsonDateParser(key, value) {
@@ -10,8 +11,9 @@ export default{
 
         if (typeof value === 'string') {
             var a = reISO.exec(value);
-            if (a)
-                return new Date(value);
+            
+            if (a) return new Date(value);
+            
             a = reMsAjax.exec(value);
             if (a) {
                 var b = a[1].split(/[-+,.]/);
