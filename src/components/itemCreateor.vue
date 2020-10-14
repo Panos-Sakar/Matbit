@@ -80,7 +80,6 @@
         top: 1.5vh;
         right: 2.5vw;
         text-align: right;
-        width: 30vw;
     }
 
     .whightText{
@@ -90,7 +89,6 @@
         width: 40%;
     }
     .dateFild{
-        width: 35%;
         font-size: 1rem;
         border-width: 2px;
         text-align: right;
