@@ -36,7 +36,6 @@
                 if(percentDate>100)
                     percentDate = 100;
 
-                console.log("Percent is: " + percentDate + " Valies are: S " + startDif + " E " + endDif)
                 return percentDate;
             },
             consumeClicked(item){

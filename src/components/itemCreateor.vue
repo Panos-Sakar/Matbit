@@ -11,11 +11,11 @@
             <h6>Amount</h6>
             <h2>
                 <input type="text" class="form__field" v-model="newItemValues.quantity.ammount" placeholder="1">
-                <select v-model="newItemValues.quantity.type">
-                    <option value="">Empty</option>
-                    <option value="ml">ml</option>
-                    <option value="Kg">Kg</option>
-                </select>
+                    <select v-model="newItemValues.quantity.type" class="form__field smallField selectdiv">
+                        <option selected value="">Empty</option>
+                        <option value="ml">ml</option>
+                        <option value="Kg">Kg</option>
+                    </select>
             </h2>
             <button class="btn" id="btn-add" v-on:click=submitForm()>Add Item</button>
         </div>
@@ -25,18 +25,22 @@
 <script>
     import { uuid } from 'vue-uuid';
 
+    function newItemTemplate(){
+        return{
+            name:'',
+            quantity: {
+                ammount: '',
+                type: ''
+            },
+            date: ''
+        }
+    }
+
     export default{
         name: 'New Item',
         data(){
             return{
-                newItemValues: {
-                    name:'',
-                    quantity: {
-                        ammount: '',
-                        type: ''
-                    },
-                    date: ''
-                }
+                newItemValues: newItemTemplate()
             }
         },
         methods:{
@@ -59,14 +63,7 @@
                 item.date.expiring = new Date(this.newItemValues.date);
                 if(isNaN(item.date.expiring)) item.date.expiring = new Date(Date.now());
 
-                this.newItemValues = {
-                    name:'',
-                    quantity: {
-                        ammount: '',
-                        type: ''
-                    },
-                    date: ''
-                };
+                this.newItemValues = newItemTemplate();
 
                 this.$emit('new-item-created', item);          
             }
@@ -110,8 +107,8 @@
         background-color: #2A265F;
         color:var(--white);
         padding: 30px;
-        max-width: 250px;
-        min-width: 250px;
+        max-width: 200px;
+        min-width: 200px;
     }
 
     .itemName a {
@@ -138,13 +135,13 @@
     }
 
     .form__field {
+        appearance: none;
         font-family: inherit;
         width: 100%;
         border: 0;
         border-bottom: 2px solid var(--gray);
         outline: 0;
         font-size: 1.3rem;
-        
         padding: 7px 0;
         background: transparent;
         transition: border-color 0.2s;
@@ -158,6 +155,9 @@
     }
     .whightText{
         color:  var(--white);
+    }
+    .smallField{
+        width: 40%;
     }
     .btn{
         border: 0;

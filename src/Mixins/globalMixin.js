@@ -1,10 +1,7 @@
-const ITEMS_STORAGE_KEY = "items-storage"
+const ITEMS_STORAGE_KEY = "items-storage";
 
 export default{
-    getItemsStorageKey(){
-        console.log("storege request:" + ITEMS_STORAGE_KEY);
-        return ITEMS_STORAGE_KEY;
-    },
+    getItemsStorageKey(){return ITEMS_STORAGE_KEY;},
     JsonDateParser(key, value) {
         var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
         var reMsAjax = /^\/Date\((d|-|.*)\)[\\/|\\]$/;
