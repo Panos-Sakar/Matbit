@@ -13,15 +13,22 @@
 			</div>
 			<h6>Amount</h6>
 			<h2>{{item.quantity.ammount}} {{item.quantity.type}}</h2>
-			<button class="btn" id="btn-consume" v-on:click=consumeClicked(item)>Consume</button>
-            <button class="btn" id="btn-del" v-on:click=deleteClicked(item)>Delete</button>
+            <div class="buttonContainer">
+                <button class="btn blue" v-on:click=consumeClicked(item)>Consume</button>
+                <button class="btn red" v-on:click=deleteClicked(item)>Delete</button>
+            </div>
 		</div>
     </div>
-    <div v-if = "!this.hidden" class="consumeCard">
-        <input type="text" class="form__field mediumField consumeInput" v-model="consumeValue" placeholder= 0>
-        <button class="btn" id="btn-confirmConsume" v-on:click=confirmConsumeClicked()>Ok</button>
-        <button class="btn" id="btn-cancelConsume" v-on:click=cancelConsumeClicked()>Cancel</button>
-    </div>
+    <transition name="fade">
+        <div v-if = "!this.hidden" class="consumeCard">
+            <input type="text" class="form__field xtrSmallField consumeInput" v-model="consumeValue" placeholder= 0>
+            <h2> {{item.quantity.type}} </h2>
+            <div class="buttonContainer">
+                <button class="btn blue" id="btn-cancelConsume" v-on:click=cancelConsumeClicked()>Cancel</button>
+                <button class="btn blue" id="btn-confirmConsume" v-on:click=confirmConsumeClicked()>Ok</button>
+            </div>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -45,7 +52,7 @@
             },
             deleteClicked(item){this.$emit('remove-item', item)},
             consumeClicked(){
-                this.hidden = false;
+                this.hidden = !this.hidden;
             },
             confirmConsumeClicked(){
                 this.hidden = true;
@@ -80,83 +87,8 @@
 
 <style scoped>
     @import '../styles/itemCard.css';
-    
-    .consumeCard{
-        text-align: left;
-        background-color: var(--white); 
-        border-radius: 10px;
-        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-        display: flex;
-        max-width: 100%;
-        overflow: hidden;
-        margin-top: 1vh;
-        width: 100%;
-        padding: 30px;
-        position: relative;
-        width: 100%;
-        transition-duration: 0.4s;
-    }
-    #btn-del{
-        background-color: #882323;
-        right: 1pc;
-    }
-    #btn-del:hover{
-        background-color: #b42e2e;
-        box-shadow: 0 13px 13px rgba(0, 0, 0, 0.4);
-        transform:scale(1.1,1.1);
-        cursor: pointer;
-    }
-    #btn-del:active{
-        background-color: #5f1919;
-        box-shadow: 0 6px 6px rgba(0, 0, 0, 0.4);
-        transform:scale(0.9,0.9);
-        cursor: pointer;
-    }
-    #btn-consume{
-        background-color: #2A265F;
-        right: 7pc;
-    }
-    #btn-consume:hover{
-        background-color: #3c368a;
-        box-shadow: 0 13px 13px rgba(0, 0, 0, 0.4);
-        transform:scale(1.1,1.1);
-    }
-    #btn-consume:active{
-        background-color: #1e1b44;
-        box-shadow: 0 6px 6px rgba(0, 0, 0, 0.4);
-        transform:scale(0.9,0.9);
-    }
-    #btn-confirmConsume{
-        background-color: #2A265F;
-        right: 30px;
-        bottom: 25%;
-    }
-    #btn-confirmConsume:hover{
-        background-color: #3c368a;
-        box-shadow: 0 13px 13px rgba(0, 0, 0, 0.4);
-        transform:scale(1.1,1.1);
-    }
-    #btn-confirmConsume:active{
-        background-color: #1e1b44;
-        box-shadow: 0 6px 6px rgba(0, 0, 0, 0.4);
-        transform:scale(0.9,0.9);
-    }
-    #btn-cancelConsume{
-        background-color: #2A265F;
-        right: 100px;
-        bottom: 25%;
-    }
-    #btn-cancelConsume:hover{
-        background-color: #3c368a;
-        box-shadow: 0 13px 13px rgba(0, 0, 0, 0.4);
-        transform:scale(1.1,1.1);
-    }
-    #btn-cancelConsume:active{
-        background-color: #1e1b44;
-        box-shadow: 0 6px 6px rgba(0, 0, 0, 0.4);
-        transform:scale(0.9,0.9);
-    }
-    .mediumField{
-        width: 40%
+
+    .consumeCard h2{
+        margin: 0vw 1vw;
     }
 </style>

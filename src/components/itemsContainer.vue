@@ -1,13 +1,15 @@
 <template>
+    
     <div class="itemsContainer">
         <itemCreator v-on:new-item-created="newItemCreated"/>
         <h1>Items</h1>
         <div v-bind:key="item.id" v-for="item in items" class="item">
             <itemCard v-bind:item="item" 
-                      v-on:consume-item="itemConsumed"
-                      v-on:remove-item="itemRemoved"/>
+                    v-on:consume-item="itemConsumed"
+                    v-on:remove-item="itemRemoved"/>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -33,6 +35,6 @@
 <style scoped>
     .itemsContainer{
         position: center;
-        min-width: 8vw;
+        padding: 0vw 1.5vw;
     }
 </style>

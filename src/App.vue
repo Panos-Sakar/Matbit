@@ -1,8 +1,10 @@
 <template>
-  <itemsContainer v-bind:items="items" 
-                  v-on:consume-item="consumeItem"
-                  v-on:remove-item="removeItem"
-                  v-on:new-item-created="addNewItem"/>
+  <div class ="App">
+    <itemsContainer v-bind:items="items" 
+                    v-on:consume-item="consumeItem"
+                    v-on:remove-item="removeItem"
+                    v-on:new-item-created="addNewItem"/>
+  </div>
 </template>
 
 <script>
@@ -68,7 +70,6 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
     min-height: 100vh;
   }
 
@@ -78,5 +79,6 @@
 
   * {
     box-sizing: border-box;
+    margin:0;
   }
 </style>

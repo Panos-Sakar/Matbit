@@ -7,17 +7,20 @@
         <div class="itemInfo">
             <h6>Amount</h6>
             <h2>
-                <input type="text" class="form__field" v-model="newItemValues.quantity.ammount" placeholder="1">
-                    <select v-model="newItemValues.quantity.type" class="form__field smallField selectdiv">
-                        <option selected value="">Empty</option>
-                        <option value="ml">ml</option>
-                        <option value="Kg">Kg</option>
-                    </select>
+                <input type="text" class="form__field mediumField" v-model="newItemValues.quantity.ammount" placeholder="1"/>
+                <select v-model="newItemValues.quantity.type" class="form__field smallField selectdiv">
+                    <option selected value="">Item</option>
+                    <option value="ml">ml</option>
+                    <option value="Kg">Kg</option>
+                    <option value="Kg">g</option>
+                </select>
             </h2>
             <div class="expDate">
                 <input type="date" class = "form__field dateFild" v-model="newItemValues.date">
             </div>
-            <button class="btn" id="btn-add" v-on:click=submitForm()>Add Item</button>
+            <div class="buttonContainer">
+                <button class="btn blue" id="btn-add" v-on:click=submitForm()>Add Item</button>
+            </div>
         </div>
     </div>
 </template>
@@ -56,8 +59,15 @@
                 
                 newItem.quantity = {};
                 newItem.quantity.ammount = parseInt(this.newItemValues.quantity.ammount);
-                newItem.quantity.type = this.newItemValues.quantity.type;
                 if(isNaN(newItem.quantity.ammount)) newItem.quantity.ammount = 1;
+                
+                let itemType = this.newItemValues.quantity.type;
+                
+                if(itemType == "") {
+                    newItem.quantity.type = "Item" + (( newItem.quantity.ammount == 1)? "":"s");
+                    console.log(newItem.quantity.type);
+                }
+                else newItem.quantity.type = itemType;
 
                 newItem.date = {};
                 newItem.date.entered = new Date(Date.now());
@@ -81,13 +91,6 @@
         right: 2.5vw;
         text-align: right;
     }
-
-    .whightText{
-        color:  var(--white);
-    }
-    .smallField{
-        width: 40%;
-    }
     .dateFild{
         font-size: 1rem;
         border-width: 2px;
@@ -97,18 +100,5 @@
         text-align: center;
         border-width: 3px;
     }
-    #btn-add{
-        background-color: #2A265F;
-        right: 0.8pc;
-    }
-    #btn-add:hover{
-        background-color: #3c368a;
-        box-shadow: 0 13px 13px rgba(0, 0, 0, 0.4);
-        transform:scale(1.1,1.1);
-    }
-    #btn-add:active{
-        background-color: #1e1b44;
-        box-shadow: 0 6px 6px rgba(0, 0, 0, 0.4);
-        transform:scale(0.9,0.9);
-    }
+    
 </style>
