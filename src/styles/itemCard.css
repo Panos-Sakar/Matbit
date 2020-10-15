@@ -3,6 +3,7 @@
     --secondary: #38ef7d;
     --white: #fff;
     --gray: #9b9b9b;
+    --black: #000;
 }
 
 /*Card*/
@@ -195,7 +196,7 @@
 .form__field {
     appearance: none;
     font-family: inherit;
-    width: 100%;
+    width: 90%;
     border: 0;
     border-bottom: 2px solid var(--gray);
     outline: 0;
@@ -210,7 +211,7 @@
     display:inline-block;
 }
 .form__field:focus{ 
-    font-weight: 700;
+    text-shadow: -0.5px 0 var(--black), 0.7px 0 var(--black);
     border-image: linear-gradient(to right, var(--primary),var(--secondary));
     border-image-slice: 1;
 }
@@ -228,4 +229,7 @@
 
 .whightText{
     color:  var(--white);
+}
+.whightText:focus{
+    text-shadow: -0.5px 0 var(--white), 0.6px 0 var(--white);
 }

@@ -1,10 +1,9 @@
 <template>
-  <div class ="App">
-    <itemsContainer v-bind:items="items" 
-                    v-on:consume-item="consumeItem"
-                    v-on:remove-item="removeItem"
-                    v-on:new-item-created="addNewItem"/>
-  </div>
+<h1>Matbit App</h1>
+  <itemsContainer v-bind:items="items" 
+                  v-on:consume-item="consumeItem"
+                  v-on:remove-item="removeItem"
+                  v-on:new-item-created="addNewItem"/>
 </template>
 
 <script>
@@ -68,9 +67,10 @@
     
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: top center;
     flex-direction: column;
     min-height: 100vh;
+    padding-bottom: 10vh;
   }
 
   body {

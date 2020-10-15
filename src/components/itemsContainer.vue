@@ -2,7 +2,7 @@
     
     <div class="itemsContainer">
         <itemCreator v-on:new-item-created="newItemCreated"/>
-        <h1>Items</h1>
+        <h1 id="separator">Items</h1>
         <div v-bind:key="item.id" v-for="item in items" class="item">
             <itemCard v-bind:item="item" 
                     v-on:consume-item="itemConsumed"
@@ -36,5 +36,8 @@
     .itemsContainer{
         position: center;
         padding: 0vw 1.5vw;
+    }
+    #separator{
+        margin-top: 8vh;
     }
 </style>

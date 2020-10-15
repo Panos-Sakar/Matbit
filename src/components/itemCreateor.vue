@@ -100,5 +100,4 @@
         text-align: center;
         border-width: 3px;
     }
-    
 </style>
