@@ -3,14 +3,14 @@
 
         <h1 id="separator">Items</h1>
         
-        <transition-group name="animateItemList" tag="div" mode="out-in" v-bind:css="false"
+        <transition-group name="animateItemList" mode="out-in" tag="div" v-bind:css="false"
             v-on:enter="enter"
             v-on:leave="leave">
 
-            <div  v-for="item in items" v-bind:key="item.id" class="item">
+            <div  v-for="item in items" v-bind:key="item.id" class="card">
                 <itemCard v-bind:item="item"/>
             </div>
-            <div v-bind:key="itemCreatorKey">
+            <div v-bind:key="itemCreatorKey" class="card">
                 <itemCreator/>
             </div>
         
@@ -57,7 +57,7 @@
                     scale: {
                         delay: 100,
                         value:[1, 0.5]
-                        },
+                    },
                     opacity: [1, 0],
                     easing: 'easeInOutSine',
                     complete: done,
@@ -69,8 +69,10 @@
 
 <style scoped>
     .itemsContainer{
-        position: center;
         padding: 0vw 1.5vw;
+    }
+    .card{
+        position: flex;
     }
     #separator{
         margin-top: 10vh;
@@ -81,6 +83,5 @@
     .animateItemList-move{
         transition: transform 0.5s ease-in-out;
     }
-
-
+    
 </style>
