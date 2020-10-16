@@ -1,8 +1,8 @@
 <template>
     <div class="itemCard">
         <div class="itemName">
-            <h6>ITEM</h6>
-            <h2><input type="text" class="form__field whightText" v-model="newItemValues.name" placeholder="New Item"></h2>
+            <h6>NEW ITEM</h6>
+            <h2><input type="text" class="form__field whightText" v-model="newItemValues.name" placeholder="Item Name"></h2>
         </div>
         <div class="itemInfo">
             <h6>Amount</h6>
@@ -46,7 +46,6 @@
                 newItemValues: newItemTemplate()
             }
         },
-        emits:['new-item-created'],
         methods:{
             submitForm(){
                 let newItem = {};
@@ -63,10 +62,7 @@
                 
                 let itemType = this.newItemValues.quantity.type;
                 
-                if(itemType == "") {
-                    newItem.quantity.type = "Item" + (( newItem.quantity.ammount == 1)? "":"s");
-                    console.log(newItem.quantity.type);
-                }
+                if(itemType == "") newItem.quantity.type = "Item" + (( newItem.quantity.ammount == 1)? "":"s");
                 else newItem.quantity.type = itemType;
 
                 newItem.date = {};
@@ -76,7 +72,8 @@
 
                 this.newItemValues = newItemTemplate();
 
-                this.$emit('new-item-created', newItem);          
+                /*Vuex*/
+                this.$store.commit('addItem', newItem);
             }
         }
     }
@@ -99,5 +96,8 @@
     .dateFild:active{
         text-align: center;
         border-width: 3px;
+    }
+    .itemCard{
+        margin-top: 10vh;
     }
 </style>

@@ -1,13 +1,11 @@
 <template>
     
     <div class="itemsContainer">
-        <itemCreator v-on:new-item-created="newItemCreated"/>
         <h1 id="separator">Items</h1>
-        <div v-bind:key="item.id" v-for="item in items" class="item">
-            <itemCard v-bind:item="item" 
-                    v-on:consume-item="itemConsumed"
-                    v-on:remove-item="itemRemoved"/>
+        <div  v-for="item in items" v-bind:key="item.id" class="item">
+            <itemCard v-bind:item="item"/>
         </div>
+        <itemCreator/>
     </div>
 
 </template>
@@ -23,12 +21,6 @@
             itemCard
         },
         props:["items"],
-        emits:['new-item-created','consume-item','remove-item'],
-        methods:{
-            newItemCreated(newItem){this.$emit('new-item-created', newItem);},
-            itemConsumed(itemID, ammount){this.$emit('consume-item', itemID, ammount);},
-            itemRemoved(item){this.$emit('remove-item', item);}
-        }
     }
 </script>
 
@@ -38,6 +30,6 @@
         padding: 0vw 1.5vw;
     }
     #separator{
-        margin-top: 8vh;
+        margin-top: 10vh;
     }
 </style>

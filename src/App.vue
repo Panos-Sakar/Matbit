@@ -1,9 +1,10 @@
 <template>
-<h1>Matbit App</h1>
-  <itemsContainer v-bind:items="items" 
-                  v-on:consume-item="consumeItem"
-                  v-on:remove-item="removeItem"
-                  v-on:new-item-created="addNewItem"/>
+  <div class="titleBar">
+    <h1>Matbit App</h1>
+  </div>
+  <transition>
+    <itemsContainer v-bind:items="this.$store.getters.getAllItems"/>
+  </transition>
 </template>
 
 <script>
@@ -17,47 +18,22 @@
       itemsContainer
     },
     mixins:[globalMixin],
-    data(){
-      return{
-        items:[]
-      }
-    },
-    created(){
-      let stored = localStorage.getItem(globalMixin.getItemsStorageKey());
-      this.items = JSON.parse(stored, globalMixin.JsonDateParser);
-    },
-    methods:{
-      removeItem(inItem){
-        let items = this.items.filter(item => item !== inItem);
-        localStorage.setItem(globalMixin.getItemsStorageKey(), JSON.stringify(items));
-        this.items = items;
-      },
-      consumeItem(itemID, ammount){
-
-        this.items.forEach(function(item, index, object){
-          
-          if(item.id == itemID) {
-            
-            item.quantity.ammount -= ammount;
-            if(item.quantity.ammount <= 0) object.splice(index, 1);
-            
-          }
-        });
-
-        localStorage.setItem(globalMixin.getItemsStorageKey(), JSON.stringify(this.items));
-        
-      },
-      addNewItem(newItem){
-        let newItems = this.items || [];
-        newItems.push(newItem);
-        localStorage.setItem(globalMixin.getItemsStorageKey(), JSON.stringify(newItems));
-        this.items = newItems;
-      }
+    created(){ 
+      this.$store.commit('initialise'); 
     }
   }
 </script>
 
 <style>
+  * {
+    box-sizing: border-box;
+    margin:0;
+  }
+
+  body {
+    background-image: linear-gradient(45deg, #7175da, #9790F2);
+  }
+
   #app {
     font-family: 'Muli', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -73,12 +49,17 @@
     padding-bottom: 10vh;
   }
 
-  body {
-    background-image: linear-gradient(45deg, #7175da, #9790F2);
+  .titleBar{
+    position: fixed;
+    z-index:100;
+    width: 100%;
+    float: center;
+    
+    padding: 1vh;
+    border-bottom: 5px solid #12112b;
+
+    color: #fff;
+    background-image: linear-gradient(20deg,#12112b, #342f75, #12112b);
   }
 
-  * {
-    box-sizing: border-box;
-    margin:0;
-  }
 </style>
