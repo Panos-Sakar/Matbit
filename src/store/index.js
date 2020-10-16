@@ -33,8 +33,10 @@ const store = createStore({
         function(item, index, object){
           
           if(item.id == consumeItem.id) {
-             
-            item.quantity.ammount -= ammount;
+            var ammountInt = parseInt(ammount);
+            if(isNaN(ammountInt)) ammountInt = 0;
+            
+            item.quantity.ammount -= ammountInt;
             if(item.quantity.ammount <= 0) object.splice(index, 1);  
           }
         }
