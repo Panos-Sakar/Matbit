@@ -3,8 +3,7 @@
 
         <h1 id="separator">Items</h1>
         
-        <transition-group name="animateItemList" tag="div" mode="out-in"    
-            v-on:before-enter="beforeEnter"
+        <transition-group name="animateItemList" tag="div" mode="out-in" v-bind:css="false"
             v-on:enter="enter"
             v-on:leave="leave">
 
@@ -24,6 +23,7 @@
     import itemCard from './itemCard.vue';
     import itemCreator from "./itemCreateor";
     import { uuid } from 'vue-uuid';
+    import anime from 'animejs/lib/anime.es.js';
 
     export default {
         name:"Items",
@@ -38,36 +38,30 @@
             }
         },
         methods:{
-            beforeEnter: function (element) {
-                element.style.opacity = 0.1;
+            enter(el,done){
+                anime({
+                    targets: el,
+                    duration: 350,
+                    translateY: [50, 0],
+                    scale: [0.5, 1],
+                    opacity: [0, 1],
+                    easing: 'easeInOutSine',
+                    complete: done,
+                })
             },
-            enter: function (element) {
-                var op = 0.1;  // initial opacity
-                var timer = setInterval(
-                    function () {
-                        if (op >= 1){
-                            element.style.opacity = 1;
-                            clearInterval(timer);
-                        }
-                        element.style.opacity = op;
-                        op += op * 0.08;
-                    }, 10
-                );
-            },
-            leave:function (element) {
-                var op = 1;
-                var scale = 1;  // initial opacity
-                var timer = setInterval(
-                    function () {
-                        if (op <= 0.1){
-                            clearInterval(timer);
-                        }
-                        element.style.opacity = op;
-                        element.style.scale = scale;
-                        op -= op * 0.3;
-                        scale -= scale * 0.1;
-                    }, 10
-                );
+            leave(el,done){
+                anime({
+                    targets: el,
+                    duration: 350,
+                    translateX: [0, 50],
+                    scale: {
+                        delay: 100,
+                        value:[1, 0.5]
+                        },
+                    opacity: [1, 0],
+                    easing: 'easeInOutSine',
+                    complete: done,
+                })
             }
         }
     }
@@ -86,9 +80,6 @@
 
     .animateItemList-move{
         transition: transform 0.5s ease-in-out;
-    }
-    .animateItemList-leave-active{
-        transition: all 0.5s ease-in-out;
     }
 
 
