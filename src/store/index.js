@@ -14,7 +14,7 @@ const store = createStore({
   },
   mutations: {
     initialise(state){
-      state.items =  loadFromJson();
+      state.items =  loadFromJson() || [];
     },
     addItem(store, newItem){
       store.items.push(newItem);
