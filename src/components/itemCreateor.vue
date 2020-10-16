@@ -96,5 +96,6 @@
     }
     .itemCard{
         margin-top: 10vh;
+        z-index:90;
     }
 </style>

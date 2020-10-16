@@ -2,9 +2,7 @@
   <div class="titleBar">
     <h1>Matbit App</h1>
   </div>
-  <transition>
-    <itemsContainer v-bind:items="this.$store.getters.getAllItems"/>
-  </transition>
+  <itemsContainer v-bind:items="this.$store.getters.getAllItems"/>
 </template>
 
 <script>
