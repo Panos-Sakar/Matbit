@@ -90,12 +90,9 @@
     }
     .dateFild{
         font-size: 1rem;
-        border-width: 2px;
-        text-align: right;
-    }
-    .dateFild:active{
-        text-align: center;
-        border-width: 3px;
+        padding: 0;
+        margin: 0;
+        width: 100%;
     }
     .itemCard{
         margin-top: 10vh;
