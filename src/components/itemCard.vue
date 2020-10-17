@@ -35,7 +35,6 @@
     export default {
         name: 'item',
         props:["item"],
-        emits:['consume-item'],
         data(){
             return{
                 consumeValue: 1,
@@ -98,4 +97,36 @@
     .consumeCard h2{
         margin: 0vw 1vw;
     }
+
+    /*consume card animation*/
+
+    .fade-enter-active {
+        animation: bounce-in 0.4s;
+    }
+    
+    .fade-leave-active {
+        animation: bounce-out 0.2s;
+    }
+      
+    @keyframes bounce-in {
+        0%{
+            transform: translateX(10vw) scale(0.8);
+            opacity: 0;
+        }
+        100%{
+            transform: translateX(0vw) scale(1);
+            opacity: 1;
+        }
+    }
+    @keyframes bounce-out {
+        0%{
+            transform: translateX(0vw) scale(1);
+            opacity: 1;
+        }
+        100%{
+            transform: translateX(-10vw) scale(0.8);
+            opacity: 0;
+        }
+    }
+
 </style>

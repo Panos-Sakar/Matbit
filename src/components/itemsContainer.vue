@@ -1,9 +1,10 @@
 <template>
-    <div class="itemsContainer">
+
+    <div class="itemsContainer" >
 
         <h1 id="separator">Items</h1>
         
-        <transition-group name="animateItemList" mode="out-in" tag="div" v-bind:css="false"
+        <transition-group name="animateItemList" v-bind:css="false"
             v-on:enter="enter"
             v-on:leave="leave">
 
@@ -71,9 +72,7 @@
     .itemsContainer{
         padding: 0vw 1.5vw;
     }
-    .card{
-        position: flex;
-    }
+
     #separator{
         margin-top: 10vh;
     }
