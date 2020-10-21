@@ -1,13 +1,27 @@
 <template>
+
   <div class="titleBar">
     <h1>Matbit App</h1>
   </div>
+
   <div class = "mainApp">
-    <div id="items" class="tab" v-on:click="this.showItems=!this.showItems">
-      <h1>Items</h1>
+
+    <div class="ItemsBox">
+      <div id="items" class="tab" v-on:click="this.showItems=!this.showItems">
+        <h1>Items</h1>
+      </div>
+      <itemsContainer v-if="this.showItems" v-bind:items="this.$store.getters.getAllItems"/>
     </div>
-    <itemsContainer v-if="this.showItems" v-bind:items="this.$store.getters.getAllItems"/>
+
+    <div class="RecipesBox">
+      <div id="items" class="tab" v-on:click="this.showRecipes=!this.showRecipes">
+        <h1>Recipes</h1>
+        <recipesContainer v-if="this.showRecipes" v-bind:recipes="this.$store.getters.getAllRecipes"/>
+      </div>
+    </div>
+
   </div>
+  
   <div class="footer">
     <pre>|     Designed by Panagiotis Sakaridis     |</pre>
   </div>
@@ -15,18 +29,21 @@
 </template>
 
 <script>
-  import itemsContainer from './components/itemsContainer.vue'
+  import itemsContainer from './components/Items/itemsContainer.vue'
+  import recipesContainer from './components/Recipes/recipesContainer.vue'
   
   import globalMixin from "./Mixins/globalMixin";
 
   export default {
     name: 'App',
     components: {
-      itemsContainer
+      itemsContainer,
+      recipesContainer
     },
     data(){
       return{
-        showItems: true
+        showItems: true,
+        showRecipes: true
       }
     },
     mixins:[globalMixin],
@@ -86,15 +103,22 @@
   }
 
   .mainApp{
-    position: relative;
+    position: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .tab {
     margin-top: 5vh;
+    width: 25vw;
     cursor: pointer;
+    padding: 0vh 1vw ;
   }
 
   .footer {
+    position: relative;
     white-space: pre;
     color: transparent;
     padding-top: 1vh;

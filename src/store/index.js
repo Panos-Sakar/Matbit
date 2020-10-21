@@ -4,18 +4,26 @@ import globalMixin from "../Mixins/globalMixin";
 
 const store = createStore({
   state: {
-    items : []
+    items : [],
+    recipes: []
     
   },
   getters:{
     getAllItems(state){
       return state.items;
+    },
+    getAllRecipes(state){
+      return state.recipes;
     }
   },
   mutations: {
     initialise(state){
-      state.items =  loadFromJson() || [];
+      state.items =  loadFromJson(globalMixin.getItemsStorageKey()) || [];
+      state.recipes = loadFromJson(globalMixin.getRecipesStorageKey()) || [];
     },
+
+    /*Item Functins*/
+    
     addItem(store, newItem){
       store.items.push(newItem);
       
@@ -44,6 +52,10 @@ const store = createStore({
 
       saveItemsToJson(store);
     }
+
+    /*Recipe Functins*/
+
+
   }
 
 });
@@ -55,7 +67,12 @@ function saveItemsToJson(store){
   localStorage.setItem(globalMixin.getItemsStorageKey(), JSON.stringify(store.items));
 }
 
-function loadFromJson(){
-  let stored = localStorage.getItem(globalMixin.getItemsStorageKey());
+// eslint-disable-next-line no-unused-vars
+function saveRecipesToJson(store){
+  localStorage.setItem(globalMixin.getRecipesStorageKey(), JSON.stringify(store.recipes));
+}
+
+function loadFromJson(StorageKey){
+  let stored = localStorage.getItem(StorageKey);
   return JSON.parse(stored, globalMixin.JsonDateParser);
 }

@@ -1,8 +1,8 @@
 <template>
 
-    <div class="itemsContainer" >
+    <div class="items Container" >
         
-        <transition-group name="animateItemList" v-bind:css="false"
+        <transition-group name="animateItemList" tag="div" v-bind:css="false"
             v-on:enter="enter"
             v-on:leave="leave">
 
@@ -66,17 +66,6 @@
     }
 </script>
 
-<style>
-    .itemsContainer{
-        max-height: 100%;
-        padding: 0vw 1.5vw;
-        box-sizing: border-box;
-    }
-    
-    /*itemList Animations*/
-
-    .animateItemList-move{
-        transition: transform 0.5s ease-in-out;
-    }
-    
+<style scoped>
+    @import '../../styles/container.css';    
 </style>

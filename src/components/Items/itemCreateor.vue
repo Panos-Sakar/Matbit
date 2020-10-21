@@ -2,7 +2,7 @@
     <div class="itemCard creator">
         <div class="itemName">
             <h6>NEW ITEM</h6>
-            <h2><input type="text" class="form__field whightText" v-model="newItemValues.name" placeholder="Item Name"></h2>
+            <h2><input type="text" class="form__field whiteText" v-model="newItemValues.name" placeholder="Item Name"></h2>
         </div>
         <div class="itemInfo">
             <h6>Amount</h6>

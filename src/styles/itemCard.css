@@ -181,9 +181,9 @@
 
 /*Generic*/
 
-.whightText{
+.whiteText{
     color:  var(--white);
 }
-/* .whightText:focus{
+/* .whiteText:focus{
     text-shadow: -0.5px 0 var(--white), 0.6px 0 var(--white);
 } */
