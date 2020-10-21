@@ -1,15 +1,13 @@
 <template>
 
     <div class="itemsContainer" >
-
-        <h1 id="separator">Items</h1>
         
         <transition-group name="animateItemList" v-bind:css="false"
             v-on:enter="enter"
             v-on:leave="leave">
 
             <div  v-for="item in items" v-bind:key="item.id" class="card">
-                <itemCard v-bind:item="item"/>
+                <itemCard v-bind:item="item" class="card"/>
             </div>
             <div v-bind:key="itemCreatorKey" class="card">
                 <itemCreator/>
@@ -68,15 +66,13 @@
     }
 </script>
 
-<style scoped>
+<style>
     .itemsContainer{
+        max-height: 100%;
         padding: 0vw 1.5vw;
+        box-sizing: border-box;
     }
-
-    #separator{
-        margin-top: 10vh;
-    }
-
+    
     /*itemList Animations*/
 
     .animateItemList-move{

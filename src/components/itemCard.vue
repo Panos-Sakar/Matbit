@@ -92,7 +92,6 @@
 </script>
 
 <style scoped>
-    @import '../styles/itemCard.css';
 
     .consumeCard h2{
         margin: 0vw 1vw;

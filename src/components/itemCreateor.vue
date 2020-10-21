@@ -80,7 +80,6 @@
 </script>
 
 <style scoped>
-    @import '../styles/itemCard.css';
     
     .expDate {
         position: absolute;
