@@ -9,6 +9,7 @@
 /*Card*/
 
 .itemCard {
+    position: relative;
     text-align: left;
     background-color: var(--white); 
     border-radius: 10px;

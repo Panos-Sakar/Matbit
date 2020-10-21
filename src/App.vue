@@ -6,6 +6,13 @@
 
   <div class = "mainApp">
 
+    <div class="RecipesBox">
+      <div id="items" class="tab" v-on:click="this.showRecipes=!this.showRecipes">
+        <h1>Recipes</h1>
+        <recipesContainer v-if="this.showRecipes" v-bind:recipes="this.$store.getters.getAllRecipes"/>
+      </div>
+    </div>
+    
     <div class="ItemsBox">
       <div id="items" class="tab" v-on:click="this.showItems=!this.showItems">
         <h1>Items</h1>
@@ -13,12 +20,6 @@
       <itemsContainer v-if="this.showItems" v-bind:items="this.$store.getters.getAllItems"/>
     </div>
 
-    <div class="RecipesBox">
-      <div id="items" class="tab" v-on:click="this.showRecipes=!this.showRecipes">
-        <h1>Recipes</h1>
-        <recipesContainer v-if="this.showRecipes" v-bind:recipes="this.$store.getters.getAllRecipes"/>
-      </div>
-    </div>
 
   </div>
   
@@ -55,6 +56,7 @@
 
 <style>
   @import './styles/itemCard.css';
+  @import './styles/container.css';
   
   * {
     box-sizing: border-box;
@@ -103,18 +105,21 @@
   }
 
   .mainApp{
-    position: flex;
-    flex-direction: column;
-    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: flex-start;
+
   }
 
   .tab {
     margin-top: 5vh;
-    width: 25vw;
+    width: auto;
     cursor: pointer;
-    padding: 0vh 1vw ;
+    max-width: 715px;
+    min-width: 360px;
+
   }
 
   .footer {
