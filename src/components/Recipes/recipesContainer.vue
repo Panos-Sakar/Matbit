@@ -6,9 +6,7 @@
             v-on:enter="enter"
             v-on:leave="leave">
 
-            <div  v-for="recipe in recipes" v-bind:key="recipe.id" class="recipe">
-                <recipeCard v-bind:recipe="recipe"/>
-            </div>
+            <recipeCard  v-for="recipe in recipes" v-bind:key="recipe.id" v-bind:recipe="recipe"/>
         
         </transition-group>
     </div>

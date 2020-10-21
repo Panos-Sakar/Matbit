@@ -7,15 +7,15 @@
   <div class = "mainApp">
 
     <div class="RecipesBox">
-      <div id="items" class="tab" v-on:click="this.showRecipes=!this.showRecipes">
+      <div class="tab recipes" v-on:click="this.showRecipes=!this.showRecipes">
         <h1>Recipes</h1>
-        <recipesContainer v-if="this.showRecipes" v-bind:recipes="this.$store.getters.getAllRecipes"/>
       </div>
+      <recipesContainer v-if="this.showRecipes" v-bind:recipes="this.$store.getters.getAllRecipes"/>
     </div>
     
     <div class="ItemsBox">
-      <div id="items" class="tab" v-on:click="this.showItems=!this.showItems">
-        <h1>Items</h1>
+      <div class="tab items" v-on:click="this.showItems=!this.showItems">
+        <h1>Ingredients</h1>
       </div>
       <itemsContainer v-if="this.showItems" v-bind:items="this.$store.getters.getAllItems"/>
     </div>
@@ -55,8 +55,10 @@
 </script>
 
 <style>
-  @import './styles/itemCard.css';
+  @import './styles/variables.css';
   @import './styles/container.css';
+  @import './styles/itemCard.css';
+  @import './styles/recipeCard.css';
   
   * {
     box-sizing: border-box;

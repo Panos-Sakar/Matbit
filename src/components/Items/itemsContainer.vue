@@ -6,12 +6,9 @@
             v-on:enter="enter"
             v-on:leave="leave">
 
-            <div  v-for="item in items" v-bind:key="item.id" class="card">
-                <itemCard v-bind:item="item" class="card"/>
-            </div>
-            <div v-bind:key="itemCreatorKey" class="card">
-                <itemCreator/>
-            </div>
+            <itemCard  v-for="item in items" v-bind:key="item.id" v-bind:item="item"/>
+
+            <itemCreator v-bind:key="itemCreatorKey"/>
         
         </transition-group>
     </div>
