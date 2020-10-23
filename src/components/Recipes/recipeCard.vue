@@ -15,15 +15,15 @@
             <i class="arrow" :class="[this.showItems? 'up' : 'down']"/>
             <div v-if="this.showItems" class="recipieItems cardSection">
                 <ul>
-                    <li>Coffee</li>
-                    <li>Tea</li>
-                    <li>Milk</li>
+                <li v-for="item in recipe.items" v-bind:key="item.id">
+                    {{item.name}} : {{item.ammount}} {{item.type}}
+                </li>
                 </ul> 
             </div>
         </div>
         
         <div class="buttonContainer cardSection blueSection">
-            <button class="btn red" @click="aletMsg('Deleted ' + this.recipe.name)">Delete</button>
+            <button class="btn red" @click="Delete(recipe)">Delete</button>
             <button class="btn grey" @click="aletMsg('Made ' + this.recipe.name)">Make</button>
         </div>
     
@@ -46,6 +46,9 @@
             },
             aletMsg(msg){
                 console.log(msg);
+            },
+            Delete(recipe){
+                this.$store.commit('removeRecipe', recipe);
             }
         }
     }

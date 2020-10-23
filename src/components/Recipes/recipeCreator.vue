@@ -72,24 +72,23 @@
         },
         methods:{
             submitForm(){
-                let newItem = {};
+                let newRecipe = {};
                 
-                newItem.id = uuid.v4();
+                newRecipe.id = uuid.v4();
 
-                newItem.name = this.newRecipeValues.name;
-                if(newItem.name == "") newItem.name = "New Recipe";
+                newRecipe.name = this.newRecipeValues.name;
+                if(newRecipe.name == "") newRecipe.name = "New Recipe";
 
-                newItem.items = this.addedItems;
+                newRecipe.items = this.addedItems;
 
                 this.newRecipeValues = newRecipeTemplate();
                 this.addItemValues = addItemTemplate();
                 this.addedItems = [];
 
                 /*Vuex*/
-                console.log(newItem);
-                newItem.items.forEach(element => {
-                    console.log("Item: " + element.name + " : " + element.ammount);
-                });
+                console.log(newRecipe);
+                this.$store.commit('addRecipe', newRecipe);
+
             },
             addItem(){
                 let newItem = {};

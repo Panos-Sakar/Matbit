@@ -31,7 +31,7 @@ const store = createStore({
     },
     removeItem(store, itemToRemove){
       var indexToRemove = store.items.findIndex(item => item.id == itemToRemove.id);
-      store.items.splice(indexToRemove,1)
+      store.items.splice(indexToRemove,1);
       
       saveItemsToJson(store);
     },
@@ -51,11 +51,21 @@ const store = createStore({
       );
 
       saveItemsToJson(store);
-    }
+    },
 
     /*Recipe Functins*/
 
-
+    addRecipe(store, newRecipe){
+      store.recipes.push(newRecipe);
+      
+      saveRecipesToJson(store);
+    },
+    removeRecipe(store, recipeToRemove){
+      var indexToRemove = store.recipes.findIndex(recipe => recipe.id == recipeToRemove.id);
+      store.recipes.splice(indexToRemove,1);
+      
+      saveRecipesToJson(store);
+    }
   }
 
 });
