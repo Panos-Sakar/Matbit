@@ -7,6 +7,8 @@
             v-on:leave="leave">
 
             <recipeCard  v-for="recipe in recipes" v-bind:key="recipe.id" v-bind:recipe="recipe"/>
+
+            <recipeCreator v-bind:key="recipeCreatorKey"/>
         
         </transition-group>
     </div>
@@ -17,16 +19,18 @@
     import { uuid } from 'vue-uuid';
     import anime from 'animejs/lib/anime.es.js';
     import recipeCard from './recipeCard'
+    import recipeCreator from './recipeCreator.vue';
 
     export default {
         name:"Recipes",
         components: {
-            recipeCard
+            recipeCard,
+            recipeCreator
         },
         props:["recipes"],
         data(){
             return{
-                itemCreatorKey: uuid.v4()
+                recipeCreatorKey: uuid.v4()
             }
         },
         methods:{

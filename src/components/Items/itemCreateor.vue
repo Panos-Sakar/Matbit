@@ -12,10 +12,7 @@
             <h2>
                 <input type="text" class="form__field mediumField" v-model="newItemValues.quantity.ammount" placeholder="1"/>
                 <select v-model="newItemValues.quantity.type" class="form__field smallField selectdiv">
-                    <option selected value="">Item</option>
-                    <option value="ml">ml</option>
-                    <option value="Kg">Kg</option>
-                    <option value="Kg">g</option>
+                    <itemTypes/>
                 </select>
             </h2>
             <div class="expDate">
@@ -32,6 +29,7 @@
 
 <script>
     import { uuid } from 'vue-uuid';
+    import itemTypes from '../helpers/itemTypes';
 
     function newItemTemplate(){
         return{
@@ -46,6 +44,9 @@
 
     export default{
         name: 'New Item',
+        components:{
+            itemTypes
+        },
         data(){
             return{
                 newItemValues: newItemTemplate()
@@ -98,7 +99,7 @@
         margin: 0;
         width: 100%;
     }
-    .itemCard{
+    .creator{
         margin-top: 10vh;
         z-index:90;
     }

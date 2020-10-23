@@ -11,7 +11,7 @@
             <h2>Ready</h2>
         </div>
         
-        <div class="show cardSection greySection" v-on:click="toggleItems(this.style)">
+        <div class="show cardSection greySection" v-on:click="toggleItems()">
             <i class="arrow" :class="[this.showItems? 'up' : 'down']"/>
             <div v-if="this.showItems" class="recipieItems cardSection">
                 <ul>
@@ -41,9 +41,8 @@
             }
         },
         methods:{
-            toggleItems(ctx){
+            toggleItems(){
                 this.showItems = !this.showItems;
-                console.log(ctx);
             },
             aletMsg(msg){
                 console.log(msg);
