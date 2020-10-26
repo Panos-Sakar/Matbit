@@ -1,0 +1,78 @@
+.recipeCard{
+    margin-top: 4vh;
+    text-align: left;
+    background-color: var(--white); 
+    border-radius: 10px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-flow: column nowrap;
+    overflow: hidden;
+    z-index: 10;
+
+    min-height: 100px;
+    min-width: 360px;
+}
+.recipeCard h6 {
+    opacity: 0.6;
+    margin: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.recipeCard h2 {
+    letter-spacing: 1px;
+    margin: 0.5pc 0;
+}
+
+.cardSection{
+    padding: 1.2vh 2vh;
+    width: 100%;
+}
+
+.blueSection{
+    background-color: var(--bg-blue);
+}
+.greySection{
+    background-color: var(--section-gray);
+}
+.greenText{
+    color:  var(--ok-green);
+}
+.redText{
+    color:  var(--ok-red);
+}
+.recipeName {
+    background-color: var(--bg-blue);
+    color:var(--white);
+}
+.recipeStatus {
+    color: Var(--black);
+}
+.show {
+    text-align: center;
+    padding: 0.5vh;
+}
+.showButton{
+    cursor: pointer;
+}
+.showButton:hover{
+    background-color: var(--gray);
+}
+.recipieItems {
+    background-color: var(--section-gray);
+    text-align: left;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}

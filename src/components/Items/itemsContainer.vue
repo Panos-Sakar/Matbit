@@ -1,17 +1,14 @@
 <template>
 
-    <div class="itemsContainer" >
+    <div class="items Container" >
         
-        <transition-group name="animateItemList" v-bind:css="false"
+        <transition-group name="animateItemList" tag="div" v-bind:css="false"
             v-on:enter="enter"
             v-on:leave="leave">
 
-            <div  v-for="item in items" v-bind:key="item.id" class="card">
-                <itemCard v-bind:item="item" class="card"/>
-            </div>
-            <div v-bind:key="itemCreatorKey" class="card">
-                <itemCreator/>
-            </div>
+            <itemCard  v-for="item in items" v-bind:key="item.id" v-bind:item="item"/>
+
+            <itemCreator v-bind:key="itemCreatorKey"/>
         
         </transition-group>
     </div>
@@ -65,18 +62,3 @@
         }
     }
 </script>
-
-<style>
-    .itemsContainer{
-        max-height: 100%;
-        padding: 0vw 1.5vw;
-        box-sizing: border-box;
-    }
-    
-    /*itemList Animations*/
-
-    .animateItemList-move{
-        transition: transform 0.5s ease-in-out;
-    }
-    
-</style>

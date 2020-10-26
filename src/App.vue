@@ -1,13 +1,28 @@
 <template>
+
   <div class="titleBar">
     <h1>Matbit App</h1>
   </div>
+
   <div class = "mainApp">
-    <div id="items" class="tab" v-on:click="this.showItems=!this.showItems">
-      <h1>Items</h1>
+
+    <div class="RecipesBox">
+      <div class="tab recipes" v-on:click="this.showRecipes=!this.showRecipes">
+        <h1>Recipes</h1>
+      </div>
+      <recipesContainer v-if="this.showRecipes" v-bind:recipes="this.$store.getters.getAllRecipes"/>
     </div>
-    <itemsContainer v-if="this.showItems" v-bind:items="this.$store.getters.getAllItems"/>
+    
+    <div class="ItemsBox">
+      <div class="tab items" v-on:click="this.showItems=!this.showItems">
+        <h1>Ingredients</h1>
+      </div>
+      <itemsContainer v-if="this.showItems" v-bind:items="this.$store.getters.getAllItems"/>
+    </div>
+
+
   </div>
+  
   <div class="footer">
     <pre>|     Designed by Panagiotis Sakaridis     |</pre>
   </div>
@@ -15,18 +30,21 @@
 </template>
 
 <script>
-  import itemsContainer from './components/itemsContainer.vue'
+  import itemsContainer from './components/Items/itemsContainer.vue'
+  import recipesContainer from './components/Recipes/recipesContainer.vue'
   
   import globalMixin from "./Mixins/globalMixin";
 
   export default {
     name: 'App',
     components: {
-      itemsContainer
+      itemsContainer,
+      recipesContainer
     },
     data(){
       return{
-        showItems: true
+        showItems: true,
+        showRecipes: true
       }
     },
     mixins:[globalMixin],
@@ -37,7 +55,10 @@
 </script>
 
 <style>
+  @import './styles/variables.css';
+  @import './styles/container.css';
   @import './styles/itemCard.css';
+  @import './styles/recipeCard.css';
   
   * {
     box-sizing: border-box;
@@ -86,15 +107,25 @@
   }
 
   .mainApp{
-    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+
+    justify-content: center;
+    align-items: flex-start;
+
   }
 
   .tab {
     margin-top: 5vh;
+    width: auto;
     cursor: pointer;
+    max-width: 715px;
+    min-width: 360px;
+
   }
 
   .footer {
+    position: relative;
     white-space: pre;
     color: transparent;
     padding-top: 1vh;

@@ -1,39 +1,55 @@
 <template>
-	<div class="itemCard">
-		<div class="itemName">
-			<h6>{{item.type}}</h6>
-			<h2>{{item.name}}</h2>
-		</div>
-		<div class="itemInfo">
-			<div class="progressContainer">
-				<div class="progress" v-bind:style="calculateProgresPercent(item)"></div>
-				<span class="progress-text">
-					Exp: {{getDateString(item.date.expiring)}}
-				</span>
-			</div>
-			<h6>Amount</h6>
-			<h2>{{item.quantity.ammount}} {{item.quantity.type}}</h2>
-            <div class="buttonContainer">
-                <button class="btn blue" @click=togleConsumeCard(item)>Consume</button>
-                <button class="btn red" @click=Delete(item)>Delete</button>
+    
+    <div  class="card">
+        
+        <div class="itemCard">
+            
+            <div class="itemName">
+                <h6>{{item.type}}</h6>
+                <h2>{{item.name}}</h2>
             </div>
-		</div>
-    </div>
-    <transition name="fade">
-        <div v-if = "!this.hidden" class="consumeCard">
-            <input type="text" class="form__field xtrSmallField consumeInput" v-model="consumeValue" placeholder= 0>
-            <h2> {{item.quantity.type}} </h2>
-            <div class="buttonContainer">
-                <button class="btn blue" id="btn-cancelConsume" @click=togleConsumeCard()>Cancel</button>
-                <button class="btn blue" id="btn-confirmConsume" @click=Consume(item)>Ok</button>
+            
+            <div class="itemInfo">
+                
+                <div class="progressContainer">
+                    <div class="progress" v-bind:style="calculateProgresPercent(item)"></div>
+                    <span class="progress-text">
+                        Exp: {{getDateString(item.date.expiring)}}
+                    </span>
+                </div>
+                
+                <h6>Amount</h6>
+                <h2>{{item.quantity.ammount}} {{item.quantity.type}}</h2>
+                
+                <div class="buttonContainer">
+                    <button class="btn red" @click="Delete(item)">Delete</button>
+                    <button class="btn blue" @click="togleConsumeCard(item)">Consume</button>
+                </div>
+            
             </div>
+        
         </div>
-    </transition>
+        
+        <transition name="fade">
+            
+            <div v-if = "!this.hidden" class="consumeCard">
+                <input type="text" class="form__field xtrSmallField consumeInput" v-model="consumeValue" placeholder= 0>
+                <h2> {{item.quantity.type}} </h2>
+                <div class="buttonContainer">
+                    <button class="btn blue" id="btn-confirmConsume" @click="Consume(item)">Ok</button>
+                    <button class="btn blue" id="btn-cancelConsume" @click="togleConsumeCard()">Cancel</button>
+                </div>
+            
+            </div>
+        </transition>
+
+    </div>
+
 </template>
 
 <script>
     export default {
-        name: 'item',
+        name: 'Item',
         props:["item"],
         data(){
             return{
@@ -78,12 +94,19 @@
                 }
             },
             getDatePercentage(startDate, endDate){
-                let startDif = Date.now() - startDate;
-                let endDif = Date.now() - endDate;
-                let percentDate = Math.round((startDif/endDif)*100);
+                let percentDate = 0;
+                // let startDif = Date.now() - startDate;
+                // let endDif = Date.now() - endDate;
+                // let percentDate = Math.round((startDif/endDif)*100);
+                let tempToday = new Date(Date.now());
+
+                let today = new Date(tempToday.getFullYear(), tempToday.getMonth(), tempToday.getDate());
+
+                if(today>=endDate) percentDate = 100;
+                else if(today < endDate && today > startDate) percentDate = ((today - startDate)/(endDate - startDate))*100;
                 
-                if(percentDate>100)
-                    percentDate = 100;
+                if(percentDate>=100) percentDate = 100;
+                if(percentDate<0) percentDate = 0;
 
                 return percentDate;
             }
