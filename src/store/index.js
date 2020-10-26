@@ -1,5 +1,5 @@
-import { createStore } from 'vuex'
-import globalMixin from "../Mixins/globalMixin";
+import { createStore } from 'vuex';
+import GM from "../Mixins/globalMixin";
 
 
 const store = createStore({
@@ -28,9 +28,9 @@ const store = createStore({
   },
   mutations: {
     initialise(state){
-      state.devSettings = loadFromJson(globalMixin.getDevSettingsKey()) || globalMixin.getDefaultDevSettings();
+      state.devSettings = loadFromJson(GM.getDevSettingsKey()) || GM.getDefaultDevSettings();
 
-      if(state.devSettings.appVersion < globalMixin.getCurrentAppVersion()){
+      if(state.devSettings.appVersion < GM.getCurrentAppVersion()){
         console.log("Reseting storage");
 
         state.items = [];
@@ -39,11 +39,11 @@ const store = createStore({
         state.recipes = [];
         saveRecipesToJson(state);
 
-        state.devSettings.appVersion = globalMixin.getCurrentAppVersion();
+        state.devSettings.appVersion = GM.getCurrentAppVersion();
       }
 
-      state.items =  loadFromJson(globalMixin.getItemsStorageKey()) || [];
-      state.recipes = loadFromJson(globalMixin.getRecipesStorageKey()) || [];
+      state.items =  loadFromJson(GM.getItemsStorageKey()) || [];
+      state.recipes = loadFromJson(GM.getRecipesStorageKey()) || [];
 
       saveDevSettingsToJson(state);
     },
@@ -51,11 +51,13 @@ const store = createStore({
     /*Item Functins*/
     
     addItem(state, newItem){
-      var findItemIndex = state.items.findIndex(item => ((item.name === newItem.name) && (globalMixin.sameDay(item.date.expiring,newItem.date.expiring))));
+      if(newItem.quantity.ammount <=0 ) return;
+      var findItemIndex = state.items.findIndex(item => ((item.name === newItem.name) && (GM.sameDay(item.date.expiring, newItem.date.expiring))));
       
       if(findItemIndex<0) state.items.push(newItem);
       else{
         state.items[findItemIndex].quantity.ammount += newItem.quantity.ammount;
+        GM.fixItemType(state.items[findItemIndex].quantity);
       }
       
       saveItemsToJson(state);
@@ -77,6 +79,8 @@ const store = createStore({
             if(isNaN(ammountInt)) ammountInt = 0;
             
             item.quantity.ammount -= ammountInt;
+            GM.fixItemType(item.quantity);
+            
             if(item.quantity.ammount <= 0) object.splice(index, 1);  
           }
         }
@@ -122,18 +126,18 @@ export default store;
 /*localStorage Functions*/
 
 function saveItemsToJson(store){
-  localStorage.setItem(globalMixin.getItemsStorageKey(), JSON.stringify(store.items));
+  localStorage.setItem(GM.getItemsStorageKey(), JSON.stringify(store.items));
 }
 
 function saveRecipesToJson(store){
-  localStorage.setItem(globalMixin.getRecipesStorageKey(), JSON.stringify(store.recipes));
+  localStorage.setItem(GM.getRecipesStorageKey(), JSON.stringify(store.recipes));
 }
 
 function saveDevSettingsToJson(state){
-  localStorage.setItem(globalMixin.getDevSettingsKey(), JSON.stringify(state.devSettings));
+  localStorage.setItem(GM.getDevSettingsKey(), JSON.stringify(state.devSettings));
 }
 
 function loadFromJson(StorageKey){
   let stored = localStorage.getItem(StorageKey);
-  return JSON.parse(stored, globalMixin.JsonDateParser);
+  return JSON.parse(stored, GM.JsonDateParser);
 }

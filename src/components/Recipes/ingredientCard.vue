@@ -41,7 +41,7 @@ export default {
             let percentStr = progPercent.toString() + "%";
             
             let percentColor = "#5f1919"; 
-            if(progPercent > 90) percentColor = "#2A265F";
+            if(progPercent >= 100) percentColor = "#2A265F";
             
             return{'width': percentStr, '--fill-color': percentColor }
         }

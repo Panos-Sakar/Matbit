@@ -101,14 +101,14 @@
                 if(newItem.name == "") newItem.name = "New Item";
 
                 newItem.ammount = parseInt(this.addItemValues.quantity.ammount);
-                if(isNaN(newItem.ammount)) newItem.ammount = 1;
+                if(isNaN(newItem.ammount) || newItem.ammount<=0) newItem.ammount = 1;
 
                 let itemType = this.addItemValues.quantity.type;
 
                 if(itemType == "") newItem.type = "Item" + (( newItem.ammount == 1)? "":"s");
                 else newItem.type = itemType;
                 
-                this.addedItems.push(newItem)
+                this.addedItems.push(newItem);
 
                 this.addItemValues = addItemTemplate();
 

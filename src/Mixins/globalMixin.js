@@ -39,5 +39,10 @@ export default{
         return  d1.getFullYear() === d2.getFullYear() && 
                 d1.getMonth() === d2.getMonth() &&
                 d1.getDate() === d2.getDate();
-      }
+    },
+
+    fixItemType(itemQuantity){
+        if(itemQuantity.type == "Item" && itemQuantity.ammount != 1) itemQuantity.type = "Items";
+        else if (itemQuantity.type == "Items" && itemQuantity.ammount == 1) itemQuantity.type = "Item"
+    }
 }
