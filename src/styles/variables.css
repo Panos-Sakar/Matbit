@@ -1,7 +1,22 @@
 * {
-    --primary: #11998e;
-    --secondary: #38ef7d;
+    --select-primary: #11998e;
+    --select-secondary: #38ef7d;
+
     --white: #fff;
     --gray: #9b9b9b;
-    --black: #000;
+    --progress-gray: #ddd;
+
+    --section-gray: #cfcfcf;
+    
+    --ok-green:#0e4444;
+    --ok-red: #5f1919;
+
+    --black: #0a0a0a;
+    --bg-blue: #2A265F;
+
+    /* 
+    --bg-blue: #2A265F;
+    --progress-blue: #5f1919;
+    --progress-red: #2A265F;
+    */
 }

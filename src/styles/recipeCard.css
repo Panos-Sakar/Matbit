@@ -26,29 +26,39 @@
 .cardSection{
     padding: 1.2vh 2vh;
     width: 100%;
-
 }
 
 .blueSection{
-    background-color: #2A265F;
+    background-color: var(--bg-blue);
 }
 .greySection{
-    background-color: #cfcfcf;
+    background-color: var(--section-gray);
 }
-
+.greenText{
+    color:  var(--ok-green);
+}
+.redText{
+    color:  var(--ok-red);
+}
 .recipeName {
-    background-color: #2A265F;
+    background-color: var(--bg-blue);
     color:var(--white);
 }
 .recipeStatus {
-    color: #265f44;
+    color: Var(--black);
 }
 .show {
     text-align: center;
     padding: 0.5vh;
 }
+.showButton{
+    cursor: pointer;
+}
+.showButton:hover{
+    background-color: var(--gray);
+}
 .recipieItems {
-    background-color: #cfcfcf;
+    background-color: var(--section-gray);
     text-align: left;
 }
 

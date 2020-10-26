@@ -94,12 +94,19 @@
                 }
             },
             getDatePercentage(startDate, endDate){
-                let startDif = Date.now() - startDate;
-                let endDif = Date.now() - endDate;
-                let percentDate = Math.round((startDif/endDif)*100);
+                let percentDate = 0;
+                // let startDif = Date.now() - startDate;
+                // let endDif = Date.now() - endDate;
+                // let percentDate = Math.round((startDif/endDif)*100);
+                let tempToday = new Date(Date.now());
+
+                let today = new Date(tempToday.getFullYear(), tempToday.getMonth(), tempToday.getDate());
+
+                if(today>=endDate) percentDate = 100;
+                else if(today < endDate && today > startDate) percentDate = ((today - startDate)/(endDate - startDate))*100;
                 
-                if(percentDate>100)
-                    percentDate = 100;
+                if(percentDate>=100) percentDate = 100;
+                if(percentDate<0) percentDate = 0;
 
                 return percentDate;
             }

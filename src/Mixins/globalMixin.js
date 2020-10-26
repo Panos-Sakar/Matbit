@@ -1,9 +1,22 @@
+const APP_VERSION = 0.1;
+
 const ITEMS_STORAGE_KEY = "items-storage";
 const RECIPES_STORAGE_KEY = "recipes-storage";
+const DEV_SETTINGS_KEY = "dev-settings";
+
+const defaultDevSettings = {
+    appVersion: 0
+}
 
 export default{
+    getCurrentAppVersion(){return APP_VERSION;},
+
     getItemsStorageKey(){return ITEMS_STORAGE_KEY;},
     getRecipesStorageKey(){return RECIPES_STORAGE_KEY;},
+    getDevSettingsKey(){return DEV_SETTINGS_KEY;},
+
+    getDefaultDevSettings(){return defaultDevSettings},
+
     JsonDateParser(key, value) {
         var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
         var reMsAjax = /^\/Date\((d|-|.*)\)[\\/|\\]$/;
@@ -20,5 +33,11 @@ export default{
             }
         }
         return value;
-    }
+    },
+    
+    sameDay(d1, d2) {
+        return  d1.getFullYear() === d2.getFullYear() && 
+                d1.getMonth() === d2.getMonth() &&
+                d1.getDate() === d2.getDate();
+      }
 }

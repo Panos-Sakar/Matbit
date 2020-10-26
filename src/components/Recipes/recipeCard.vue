@@ -8,23 +8,22 @@
         </div>
         
         <div class="recipeStatus cardSection">
-            <h2>Ready</h2>
+            <h2 v-if="checkIngridientStatus(recipe)" class="greenText">Sufficient ingrediens</h2>
+            <h2 v-else class="redText">Insufficient ingrediens</h2>
         </div>
         
-        <div class="show cardSection greySection" v-on:click="toggleItems()">
-            <i class="arrow" :class="[this.showItems? 'up' : 'down']"/>
+        <div class="show cardSection greySection">
             <div v-if="this.showItems" class="recipieItems cardSection">
-                <ul>
-                <li v-for="item in recipe.items" v-bind:key="item.id">
-                    {{item.name}} : {{item.ammount}} {{item.type}}
-                </li>
-                </ul> 
+                <ingredient v-for="ingr in recipe.items" v-bind:key="ingr.id" v-bind:ingredient="ingr"/>
+            </div>
+            <div class="showButton" v-on:click="toggleItems()">
+                <i class="arrow" :class="[this.showItems? 'up' : 'down']"/>
             </div>
         </div>
         
         <div class="buttonContainer cardSection blueSection">
             <button class="btn red" @click="Delete(recipe)">Delete</button>
-            <button class="btn grey" @click="aletMsg('Made ' + this.recipe.name)">Make</button>
+            <!-- <button class="btn grey" @click="makeRecipe(recipe)">Make</button> -->
         </div>
     
     </div>
@@ -32,10 +31,15 @@
 </template>
 
 <script>
+    import ingredient from './ingredientCard';
+
     export default {
         name: 'Recipe',
         props:["recipe"],
-        data(){
+        components: {
+            ingredient
+        },
+        data: () => {
             return{
                 showItems: false
             }
@@ -43,13 +47,26 @@
         methods:{
             toggleItems(){
                 this.showItems = !this.showItems;
-            },
-            aletMsg(msg){
-                console.log(msg);
+                //this.$forceUpdate();
             },
             Delete(recipe){
                 this.$store.commit('removeRecipe', recipe);
+            },
+            checkIngridientStatus(recipe){
+                this.$store.commit('checkRecipeStatus', recipe.id);
+                return recipe.isReady;
             }
         }
     }
 </script>
+
+<style scoped>
+    .recipieItems{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-wrap: nowrap;
+        overflow: hidden;
+
+    }
+</style>
