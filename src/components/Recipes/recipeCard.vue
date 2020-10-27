@@ -8,7 +8,8 @@
         </div>
         
         <div class="recipeStatus cardSection">
-            <h2 v-if="checkIngridientStatus(recipe)" class="greenText">Sufficient ingrediens</h2>
+            <h2 v-if="isReady()" class="greenText">Sufficient ingrediens</h2>
+            <h2 v-else-if="isReadyWithExp()" class="orangeText">Sufficient ingrediens <br> (with expired items)</h2>
             <h2 v-else class="redText">Insufficient ingrediens</h2>
         </div>
         
@@ -17,13 +18,13 @@
                 <ingredient v-for="ingr in recipe.items" v-bind:key="ingr.id" v-bind:ingredient="ingr"/>
             </div>
             <div class="showButton" v-on:click="toggleItems()">
-                <i class="arrow" :class="[this.showItems? 'up' : 'down']"/>
+                <i class="arrow" :class="[showItems? 'up' : 'down']"/>
             </div>
         </div>
         
         <div class="buttonContainer cardSection blueSection">
             <button class="btn red" @click="Delete(recipe)">Delete</button>
-            <!-- <button class="btn grey" @click="makeRecipe(recipe)">Make</button> -->
+            <button class="btn grey" @click="makeRecipe(recipe)">Make</button>
         </div>
     
     </div>
@@ -41,20 +42,31 @@
         },
         data: () => {
             return{
-                showItems: false
+                showItems: false,
+                expItems: []
             }
         },
         methods:{
             toggleItems(){
                 this.showItems = !this.showItems;
-                //this.$forceUpdate();
+                this.$forceUpdate();
+            },
+            isReady(){
+                this.checkIngridientStatus(this.recipe)
+                return this.recipe.isReady;
+            },
+            isReadyWithExp(){
+                this.checkIngridientStatus(this.recipe)
+                return this.recipe.isReadyWithExp;
+            },
+            checkIngridientStatus(recipe){
+                this.$store.commit('checkRecipeStatus', recipe.id);
             },
             Delete(recipe){
                 this.$store.commit('removeRecipe', recipe);
             },
-            checkIngridientStatus(recipe){
-                this.$store.commit('checkRecipeStatus', recipe.id);
-                return recipe.isReady;
+            makeRecipe(recipe){
+                if(recipe.isReady) console.log("Making recipe");
             }
         }
     }

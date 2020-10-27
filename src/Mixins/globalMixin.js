@@ -43,6 +43,11 @@ export default{
 
     fixItemType(itemQuantity){
         if(itemQuantity.type == "Item" && itemQuantity.ammount != 1) itemQuantity.type = "Items";
-        else if (itemQuantity.type == "Items" && itemQuantity.ammount == 1) itemQuantity.type = "Item"
+        else if (itemQuantity.type == "Items" && itemQuantity.ammount == 1) itemQuantity.type = "Item";
+    },
+
+    getFormatedDate(date){
+        let tempToday = new Date(date);
+        return new Date(tempToday.getFullYear(), tempToday.getMonth(), tempToday.getDate());
     }
 }

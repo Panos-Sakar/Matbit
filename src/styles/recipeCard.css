@@ -40,6 +40,9 @@
 .redText{
     color:  var(--ok-red);
 }
+.orangeText{
+    color:  var(--ok-orange);
+}
 .recipeName {
     background-color: var(--bg-blue);
     color:var(--white);

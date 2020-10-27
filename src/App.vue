@@ -7,17 +7,17 @@
   <div class = "mainApp">
 
     <div class="RecipesBox">
-      <div class="tab recipes" v-on:click="this.showRecipes=!this.showRecipes">
+      <div class="tab recipes" v-on:click="showRecipes=!showRecipes">
         <h1>Recipes</h1>
       </div>
-      <recipesContainer v-if="this.showRecipes" v-bind:recipes="this.$store.getters.getAllRecipes"/>
+      <recipesContainer v-if="showRecipes" v-bind:recipes="$store.getters.getAllRecipes"/>
     </div>
     
     <div class="ItemsBox">
-      <div class="tab items" v-on:click="this.showItems=!this.showItems">
+      <div class="tab items" v-on:click="showItems=!showItems">
         <h1>Ingredients</h1>
       </div>
-      <itemsContainer v-if="this.showItems" v-bind:items="this.$store.getters.getAllItems"/>
+      <itemsContainer v-if="showItems" v-bind:items="$store.getters.getAllItems"/>
     </div>
 
 

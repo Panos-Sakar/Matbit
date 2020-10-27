@@ -80,7 +80,7 @@
                 if(newRecipe.name == "") newRecipe.name = "New Recipe";
 
                 newRecipe.items = this.addedItems;
-                newRecipe.isReady = false;
+                //newRecipe.isReady = false;
 
                 this.newRecipeValues = newRecipeTemplate();
                 this.addItemValues = addItemTemplate();

@@ -16,25 +16,28 @@ export default {
     props:["ingredient"],
     data: () =>{
         return{
-            percentage: 0
+            percentage: 0,
+            ingrStorage: {}
         }
     },
     methods:{
         checkIngredient(ingredient){
-            var perc = this.getIngredientPercentage(ingredient);
-            this.percentage = perc*100;
-            
-            if(perc>=1) return "green";
-            else return "red";
+            this.ingrStorage = this.$store.getters.getItemByName(ingredient.name, ingredient.type);
+            this.percentage = this.getIngredientPercentage(ingredient)*100;
+
+            if(this.ingrStorage.ammount>=ingredient.ammount) return "greenDot";
+            else if((this.ingrStorage.ammount + this.ingrStorage.expAmmount)>=ingredient.ammount) return "orangeDot";
+            else return "redDot";
         },
         getIngredientPercentage(ingredientInRecipe){
-            var ingredientFtomStorage = this.$store.getters.getItemByName(ingredientInRecipe.name);
             
-            if(ingredientFtomStorage.ammount >= ingredientInRecipe.ammount) return 1;
-            if(ingredientFtomStorage.ammount < ingredientInRecipe.ammount && ingredientFtomStorage.ammount > 0){
-                return ingredientFtomStorage.ammount/ingredientInRecipe.ammount;
+            var ingredientAmmountAll = this.ingrStorage.ammount + this.ingrStorage.expAmmount;
+            
+            if(ingredientAmmountAll >= ingredientInRecipe.ammount) return 1;
+            if(ingredientAmmountAll < ingredientInRecipe.ammount && ingredientAmmountAll > 0){
+                return ingredientAmmountAll/ingredientInRecipe.ammount;
             }
-            if(ingredientFtomStorage.ammount <= 0) return 0;
+            if(ingredientAmmountAll <= 0) return 0;
         },
         calculateProgresPercentStyle(){
             let progPercent = this.percentage;
@@ -91,10 +94,13 @@ export default {
         display: inline-block;
         margin-right: 0.5pc;
     }
-    .red{
-        background-color: #791919;
+    .redDot{
+        background-color: var(--ok-red);
     }
-    .green{
-        background-color: #0e4444;
+    .greenDot{
+        background-color: var(--ok-green);
+    }
+    .orangeDot{
+        background-color:var(--ok-orange);
     }
 </style>

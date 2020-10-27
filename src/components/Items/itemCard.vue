@@ -65,9 +65,7 @@
                 this.$store.commit('removeItem', item);
             },
             Consume(item){
-                this.$store.commit('consumeItem', { 
-                        consumeItem:item,  ammount: this.consumeValue
-                    });
+                this.$store.commit('consumeItem', { consumeItem:item,  ammount: this.consumeValue });
 
                 this.togleConsumeCard()
             },
@@ -95,9 +93,7 @@
             },
             getDatePercentage(startDate, endDate){
                 let percentDate = 0;
-                // let startDif = Date.now() - startDate;
-                // let endDif = Date.now() - endDate;
-                // let percentDate = Math.round((startDif/endDif)*100);
+
                 let tempToday = new Date(Date.now());
 
                 let today = new Date(tempToday.getFullYear(), tempToday.getMonth(), tempToday.getDate());

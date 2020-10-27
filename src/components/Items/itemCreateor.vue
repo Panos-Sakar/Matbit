@@ -88,7 +88,9 @@
                 newItem.date.entered = today;
                 newItem.date.expiring = dateExpiring;
                 if(isNaN(newItem.date.expiring)) newItem.date.expiring = today;
-
+                
+                newItem.date.hasExpired = (dateExpiring>today)? false : true;
+                
                 //Save
                 this.newItemValues = newItemTemplate();
 
