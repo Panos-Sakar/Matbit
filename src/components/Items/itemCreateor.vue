@@ -30,6 +30,7 @@
 <script>
     import { uuid } from 'vue-uuid';
     import itemTypes from '../helpers/itemTypes';
+    import GM from "../../Mixins/globalMixin";
 
     function newItemTemplate(){
         return{
@@ -38,7 +39,8 @@
                 ammount: '',
                 type: ''
             },
-            date: new Date().toISOString().slice(0,10)
+            date: GM.getFormatedDate(Date.now(),2).toISOString().slice(0,10)
+
         }
     }
 

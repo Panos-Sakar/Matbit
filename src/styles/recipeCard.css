@@ -79,3 +79,21 @@
     transform: rotate(-135deg);
     -webkit-transform: rotate(-135deg);
 }
+
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.5pc;
+}
+.redDot{
+    background-color: var(--ok-red);
+}
+.greenDot{
+    background-color: var(--ok-green);
+}
+.orangeDot{
+    background-color:var(--ok-orange);
+}

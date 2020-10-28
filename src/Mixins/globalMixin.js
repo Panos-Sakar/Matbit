@@ -45,9 +45,15 @@ export default{
         if(itemQuantity.type == "Item" && itemQuantity.ammount != 1) itemQuantity.type = "Items";
         else if (itemQuantity.type == "Items" && itemQuantity.ammount == 1) itemQuantity.type = "Item";
     },
+    
+    compareTypes(a, b){
+        if(a===b) return true;
+        if((a=="Item" || a=="Items") && (b=="Item" || b=="Items")) return true;
+        return false;
+    },
 
-    getFormatedDate(date){
+    getFormatedDate(date, dayOffset = 0){
         let tempToday = new Date(date);
-        return new Date(tempToday.getFullYear(), tempToday.getMonth(), tempToday.getDate());
+        return new Date(tempToday.getFullYear(), tempToday.getMonth(), tempToday.getDate() + dayOffset );
     }
 }

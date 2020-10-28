@@ -16,7 +16,7 @@ const store = createStore({
       return state.recipes;
     },
     getItemByName: (state) => (itemName, itemType) =>{
-      var matchingItems = state.items.filter(item => item.name == itemName && compareTypes(item.quantity.type, itemType));
+      var matchingItems = state.items.filter(item => item.name == itemName && GM.compareTypes(item.quantity.type, itemType));
       
       if(matchingItems.length == 0) return { "ammount": 0 , expAmmount: 0, "type": "items"}
       
@@ -74,7 +74,7 @@ const store = createStore({
       if(newItem.quantity.ammount <=0 ) return;
       var findItemIndex = state.items.findIndex(item => ((item.name === newItem.name) && 
                                                         (GM.sameDay(item.date.expiring, newItem.date.expiring)) && 
-                                                        compareTypes(item.quantity.type, newItem.quantity.type))
+                                                        GM.compareTypes(item.quantity.type, newItem.quantity.type))
       );
       
       if(findItemIndex<0) state.items.push(newItem);
@@ -202,12 +202,6 @@ function checkRecipeItemsExpiration(store,recipe){
   return expItems;
 }
 
-function compareTypes(a, b){
-  if(a===b) return true;
-  if((a=="Item" || a=="Items") && (b=="Item" || b=="Items")) return true;
-  return false;
-}
-
 function itemHasExpired(expDate){
   let today = GM.getFormatedDate(Date.now());
   return (today>=expDate);
@@ -219,7 +213,7 @@ function drainItem(state, itemToDrain){
   let ammountInItem = 0;
   
   var matchingItems = state.items.filter(item => item.name == itemToDrain.name && 
-                                        compareTypes(item.quantity.type, itemToDrain.type) &&
+                                        GM.compareTypes(item.quantity.type, itemToDrain.type) &&
                                         !itemHasExpired(item.date.expiring)
   );
   

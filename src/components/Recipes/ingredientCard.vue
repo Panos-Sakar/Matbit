@@ -1,6 +1,6 @@
 <template>
     <div class="ingredient">
-        <div class="dot" :class="checkIngredient(ingredient)"/>
+        <i class="dot" :class="checkIngredient(ingredient)"/>
         <div class="ingredientStats">
             {{ingredient.name}} | {{ingredient.ammount}} {{ingredient.type}}
         </div>
@@ -86,21 +86,5 @@ export default {
         left: 0;
         height: 5px;
     }
-    .dot {
-        height: 15px;
-        width: 15px;
-        background-color: #bbb;
-        border-radius: 50%;
-        display: inline-block;
-        margin-right: 0.5pc;
-    }
-    .redDot{
-        background-color: var(--ok-red);
-    }
-    .greenDot{
-        background-color: var(--ok-green);
-    }
-    .orangeDot{
-        background-color:var(--ok-orange);
-    }
+
 </style>
