@@ -18,10 +18,15 @@ const fs = require("fs");
     console.log("Copying build output...");
     
     const folderName = fs.existsSync("dist") ? "dist\\" : "build\\"; // Understand if it's dist or build folder
+
+    await execa("rimraf", ["css"], { cwd: '../Matbit-live-test/' });
+    await execa("rimraf", ["js"], { cwd: '../Matbit-live-test/' });
+
     await execa("Xcopy", [folderName, "..\\Matbit-live-test\\" , "/e/d/c/y"]);
 
     console.log("Commiting ro Github...");
     await execa("git", ["add", "--all"], { cwd: '../Matbit-live-test/' });
+    
     try{
 
       await execa("git", ["commit", "-m", '"Update Matbit-live-test"'], { cwd: '../Matbit-live-test/' });
