@@ -66,7 +66,7 @@
                 this.$store.commit('removeRecipe', recipe);
             },
             makeRecipe(recipe){
-                if(recipe.isReady) console.log("Making recipe");
+                if(recipe.isReady) this.$store.commit('executeRecipe', recipe);
             }
         }
     }

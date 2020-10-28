@@ -74,7 +74,8 @@ const store = createStore({
       if(newItem.quantity.ammount <=0 ) return;
       var findItemIndex = state.items.findIndex(item => ((item.name === newItem.name) && 
                                                         (GM.sameDay(item.date.expiring, newItem.date.expiring)) && 
-                                                        compareTypes(item.quantity.type, newItem.quantity.type)));
+                                                        compareTypes(item.quantity.type, newItem.quantity.type))
+      );
       
       if(findItemIndex<0) state.items.push(newItem);
       else{
@@ -97,13 +98,13 @@ const store = createStore({
         function(item, index, object){
           
           if(item.id == consumeItem.id) {
-            var ammountInt = parseInt(ammount);
-            if(isNaN(ammountInt)) ammountInt = 0;
+            var ammountFloat = parseFloat(ammount);
+            if(isNaN(ammountFloat)) ammountFloat = 0;
             
-            item.quantity.ammount -= ammountInt;
+            item.quantity.ammount -= ammountFloat;
             GM.fixItemType(item.quantity);
             
-            if(item.quantity.ammount <= 0) object.splice(index, 1);  
+            if(item.quantity.ammount <= 0) object.splice(index, 1);
           }
         }
       );
@@ -135,6 +136,11 @@ const store = createStore({
 
         }
         
+      });
+    },
+    executeRecipe(state, recipe){
+      recipe.items.forEach(itemInRecipe => {
+        drainItem(state, itemInRecipe);
       });
     }
   }
@@ -205,4 +211,42 @@ function compareTypes(a, b){
 function itemHasExpired(expDate){
   let today = GM.getFormatedDate(Date.now());
   return (today>=expDate);
+}
+
+function drainItem(state, itemToDrain){
+
+  var drainQuantity = itemToDrain.ammount;
+  let ammountInItem = 0;
+  
+  var matchingItems = state.items.filter(item => item.name == itemToDrain.name && 
+                                        compareTypes(item.quantity.type, itemToDrain.type) &&
+                                        !itemHasExpired(item.date.expiring)
+  );
+  
+  matchingItems.sort((a,b) => { return a.quantity.ammount - b.quantity.ammount; });
+
+  matchingItems.every(item => {
+    
+    ammountInItem = item.quantity.ammount;
+    
+    item.quantity.ammount -= drainQuantity;
+    GM.fixItemType(item.quantity);
+    
+    drainQuantity -= ammountInItem;
+
+    if(item.quantity.ammount >  0){ return false; }
+    
+    if(item.quantity.ammount == 0){ removeItemFromState(state, item); return false; }
+    
+    if(item.quantity.ammount <  0){ removeItemFromState(state, item); return true; }
+
+  });
+
+  saveItemsToJson(state);
+}
+
+function removeItemFromState(state, itemToRemove){
+  var indexToRemove = 0;
+  indexToRemove = state.items.findIndex(item => (item.id === itemToRemove.id));
+  state.items.splice(indexToRemove, 1);
 }
