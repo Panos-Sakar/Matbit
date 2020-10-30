@@ -1,21 +1,21 @@
 <template>
 
   <div class="titleBar">
-    <h1>Matbit App</h1>
+    <h1 class="noselect">Matbit App</h1>
   </div>
 
   <div class = "mainApp">
 
     <div class="RecipesBox">
       <div class="tab recipes" v-on:click="showRecipes=!showRecipes">
-        <h1>Recipes</h1>
+        <h1 class="noselect">Recipes</h1>
       </div>
       <recipesContainer v-if="showRecipes" v-bind:recipes="$store.getters.getAllRecipes"/>
     </div>
     
     <div class="ItemsBox">
       <div class="tab items" v-on:click="showItems=!showItems">
-        <h1>Ingredients</h1>
+        <h1 class="noselect">Ingredients</h1>
       </div>
       <itemsContainer v-if="showItems" v-bind:items="$store.getters.getAllItems"/>
     </div>
@@ -131,5 +131,20 @@
     padding-top: 1vh;
     padding-bottom: 10vh;
   }
-
+  .noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .circle
+  {
+    border-radius: 50%;
+    width: 50pt;
+    height: 50pt; 
+    background-color: var(--gray);
+    text-align:center;
+  }
 </style>

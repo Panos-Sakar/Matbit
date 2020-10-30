@@ -3,12 +3,12 @@
     <div class="recipeCard creator">
         
         <div class="recipeName cardSection">
-			<h6>New Recipe</h6>
+			<h6 class="noselect">New Recipe</h6>
 			<h2><input type="text" class="form__field whiteText" v-model="newRecipeValues.name" placeholder="Recipe Name"></h2>
         </div>
         
         <div class="cardSection addNewItem">
-            <h6>Add new item</h6>
+            <h6 class="noselect">Add new item</h6>
             <div class="inputContainer">
                 <input type="text" class="form__field smallField" v-model="addItemValues.name" placeholder="Name">
                 <input type="text" class="form__field xtrSmallField" v-model="addItemValues.quantity.ammount" placeholder="1"/>
@@ -21,7 +21,7 @@
         
         <div class="show cardSection greySection">
             <!-- <i class="arrow" :class="['down']"/> -->
-            <h6>Added Items</h6>
+            <h6 class="noselect">Added Items</h6>
             <ul class="recipieItems cardSection">
                 <li class="newItem" v-for="item in addedItems" v-bind:key="item.id">
                     <i class="dot"/>
@@ -36,7 +36,7 @@
         <div class="buttonContainer cardSection blueSection">
             <button class="btn grey" @click="submitForm()">Add Recipe</button>
         </div>
-    
+
     </div>
 
 </template>
@@ -93,9 +93,7 @@
                 this.addedItems = [];
 
 
-
-                /*Vuex*/
-                this.$store.commit('addRecipe', newRecipe);
+                if(newRecipe.items.length > 0) this.$store.commit('addRecipe', newRecipe);
 
             },
             addItem(){
@@ -166,7 +164,7 @@
     }
     .circularButton{
         padding: 0.5pc 0.8pc;
-        border-radius: 100%;
+        border-radius: 50%;
     }
     .newItem{
         display: flex;

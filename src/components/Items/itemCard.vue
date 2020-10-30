@@ -5,20 +5,20 @@
         <div class="itemCard">
             
             <div class="itemName">
-                <h6>{{item.type}}</h6>
+                <h6 class="noselect">{{item.type}}</h6>
                 <h2>{{item.name}}</h2>
             </div>
             
             <div class="itemInfo">
                 
-                <div class="progressContainer">
+                <div class="progressContainer noselect">
                     <div class="progress" v-bind:style="calculateProgresPercent(item)"></div>
                     <span class="progress-text">
                         Exp: {{getDateString(item.date.expiring)}}
                     </span>
                 </div>
                 
-                <h6>Amount</h6>
+                <h6 class="noselect">Amount</h6>
                 <h2>{{item.quantity.ammount}} {{item.quantity.type}}</h2>
                 
                 <div class="buttonContainer">

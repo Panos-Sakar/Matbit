@@ -3,12 +3,12 @@
     <div class="itemCard creator">
         
         <div class="itemName">
-            <h6>NEW ITEM</h6>
+            <h6 class="noselect">NEW ITEM</h6>
             <h2><input type="text" class="form__field whiteText" v-model="newItemValues.name" placeholder="Item Name"></h2>
         </div>
         
         <div class="itemInfo">
-            <h6>Amount</h6>
+            <h6 class="noselect">Amount</h6>
             <h2>
                 <input type="text" class="form__field mediumField" v-model="newItemValues.quantity.ammount" placeholder="1"/>
                 <select v-model="newItemValues.quantity.type" class="form__field smallField selectdiv">
