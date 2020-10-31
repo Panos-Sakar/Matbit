@@ -4,7 +4,7 @@
         <i class="dot" :class="checkIngredient(ingredient)"/>
         
         <div class="ingredientStats">
-            {{ingredient.name}} | {{ingredient.ammount}} {{ingredient.type}}
+            <h3>{{ingredient.name}} : &nbsp; {{ingredient.ammount}} {{ingredient.type}}</h3>
         </div>
         <div class="progress">
             <div class="percentageBar">
@@ -63,16 +63,15 @@ export default {
         
         width: 100%;
         
-        padding: 4px 0px;
-        padding-left: 5px;
+        padding: 5px;
 
-        grid-template-columns: 2pc auto;
+        grid-template-columns: 2pc auto 5pc;
         grid-template-rows: 1.5pc 1pc;
 
 
         grid-template-areas: 
-                            "dot stats"
-                            "dot progress"
+                            "dot stats bts"
+                            "dot progress bts"
         ;
     }
 
@@ -99,9 +98,8 @@ export default {
         justify-self: start;
         align-self: center;
         
-        width: 90%;
+        width: 100%;
 
-        margin-right: 1pc;
     }
     
     .percentageBar{

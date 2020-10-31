@@ -114,7 +114,7 @@
                 newName: "",
                 newAmmount: 0,
                 newType: "",
-                newDate: "" //GM.getFormatedDate(Date.now(),2).toISOString().slice(0,10)
+                newDate: ""
             }
         },
         methods:{
