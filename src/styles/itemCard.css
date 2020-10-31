@@ -197,6 +197,13 @@
     flex-grow: 1;
 }
 
+.xxtrSmallField{
+    min-width: 1pc;
+    width: 10%;
+    max-width: 3pc;
+    flex-grow: 1;  
+}
+
 .expDate {
     position: absolute;
     top: 1.5vh;

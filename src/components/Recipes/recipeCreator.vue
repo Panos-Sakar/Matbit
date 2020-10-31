@@ -15,7 +15,7 @@
                 <select v-model="addItemValues.quantity.type" class="form__field xtrSmallField selectdiv">
                     <itemTypes/>
                 </select>
-                <button class="btn blue FloatBRight circularButton" @click="addItem()">+</button>
+                <button class="btn blue FloatBRight smallButton" @click="addItem()">+</button>
             </div>
         </div>
         

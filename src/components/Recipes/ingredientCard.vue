@@ -1,28 +1,53 @@
 <template>
-    <div class="ingredient">
-        
-        <i class="dot" :class="checkIngredient(ingredient)"/>
-        
-        <div class="ingredientStats">
-            <h3>{{ingredient.name}} : &nbsp; {{ingredient.ammount}} {{ingredient.type}}</h3>
-        </div>
-        <div class="progress">
-            <div class="percentageBar">
-                <div class="fillPercent" :style="calculateProgresPercentStyle()"/>
+    <div class="IngredientContainer" @dblclick="toggleEdit()">
+
+        <div v-show="!editItem" class="ingredient">
+            
+            <i class="dot" :class="checkIngredient(ingredient)"/>
+            
+            <div class="ingredientStats">
+                <h3>{{ingredient.name}} : &nbsp; {{ingredient.ammount}} {{ingredient.type}}</h3>
             </div>
+            
+            <div class="progress">
+                <div class="percentageBar">
+                    <div class="fillPercent" :style="calculateProgresPercentStyle()"/>
+                </div>
+            </div>
+        
+        
         </div>
-    
+
+        <div v-show="editItem" class="inputContainer">
+            <input type="text" class="form__field xtrSmallField" v-model="newName" onfocus="this.select();">
+            <input type="text" class="form__field xxtrSmallField" v-model="newAmmount" onfocus="this.select();"/>
+            <select v-model="newType" class="form__field xtrSmallField selectdiv">
+                <itemTypes/>
+            </select>
+            <button class="btn red FloatBRight smallB" @click="toggleEdit()">X</button>
+            <button class="btn blue FloatBRight smallB" @click="submitEdit()">ok</button>
+        </div>
     </div>
+
 </template>
 
 <script>
+import itemTypes from '../helpers/itemTypes';
+
 export default {
     name: 'Ingredient',
     props:["ingredient"],
+    components:{
+        itemTypes
+    },
     data: () =>{
         return{
             percentage: 0,
-            ingrStorage: {}
+            ingrStorage: {},
+            editItem: false,
+            newName: "",
+            newAmmount: "",
+            newType: ""
         }
     },
     methods:{
@@ -52,12 +77,35 @@ export default {
             if(progPercent >= 100) percentColor = "#2A265F";
             
             return{'width': percentStr, '--fill-color': percentColor }
+        },
+        toggleEdit(){
+            this.newName = this.ingredient.name;
+            this.newAmmount = this.ingredient.ammount;
+            if(this.ingredient.type == "Item" || this.ingredient.type == "Items") this.newType = "";
+            else this.newType = this.ingredient.type;
+
+            this.editItem = !this.editItem;
+        },
+        submitEdit(confirmSubmit = true){
+            if(confirmSubmit) console.log("New: " + this.newName + " | " + this.newAmmount + " " + this.newType) //this.$store.commit();
+            this.editItem = !this.editItem;
         }
     }
 }
 </script>
 
 <style scoped>
+    .IngredientContainer{
+        width: 100%;
+    }
+    .inputContainer{
+        padding: 5px;
+        height: calc(2.5pc + 10px);
+        width: 100%;
+    }
+    .smallB{
+        margin: 0.3pc;
+    }
     .ingredient{
         display: grid;
         

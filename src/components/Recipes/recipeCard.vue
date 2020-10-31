@@ -60,7 +60,6 @@
                 editName: false,
                 expItems: [],
                 newName: ""
-                
             }
         },
         methods:{
