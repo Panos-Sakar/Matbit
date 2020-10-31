@@ -26,7 +26,7 @@
             <h2 v-else class="redText">Insufficient ingrediens</h2>
         </div>
         
-        <div class="show cardSection greySection">
+        <div class="show cardSection greySection noselect">
             <h6 class="noselect">Ingredients</h6>
             <div v-if="this.showItems" class="recipieItems cardSection">
                 <ingredient v-for="ingr in recipe.items" v-bind:key="ingr.id" v-bind:ingredient="ingr"/>
