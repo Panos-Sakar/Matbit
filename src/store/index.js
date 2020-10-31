@@ -34,7 +34,7 @@ const store = createStore({
       
       let expDates = [];
 
-      matchingItems.forEach(item => { 
+      matchingItems.forEach(item => {
         expDates.push(item.date.expiring);
       });
       
@@ -127,6 +127,16 @@ const store = createStore({
         state.items[index].quantity.type = newType;
       } 
 
+      saveItemsToJson(state);
+    },
+    updateDateItem(state,{itemId, newDate}){
+      var index = state.items.findIndex(item => item.id == itemId);
+
+      let tempExpiring = new Date(newDate);
+      let dateExpiring = new Date(tempExpiring.getFullYear(), tempExpiring.getMonth(), tempExpiring.getDate());
+      
+      state.items[index].date.expiring = dateExpiring;
+      
       saveItemsToJson(state);
     },
 

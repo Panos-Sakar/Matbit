@@ -192,6 +192,25 @@
     flex-grow: 1;
 }
 
+.expDate {
+    position: absolute;
+    top: 1.5vh;
+    right: 2.5vw;
+    text-align: right;
+    z-index: 100;
+    cursor: pointer;
+}
+.dateFild{
+    font-size: 1rem;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.creator{
+    margin-top: 10vh;
+    z-index:90;
+}
+
 /*Generic*/
 
 .whiteText{

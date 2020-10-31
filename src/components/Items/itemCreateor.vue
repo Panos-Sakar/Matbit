@@ -9,15 +9,18 @@
         
         <div class="itemInfo">
             <h6 class="noselect">Amount</h6>
+            
+            <div class="expDate">
+                <input type="date" class = "form__field dateFild" v-model="newItemValues.date">
+            </div>
+            
             <h2>
                 <input type="text" class="form__field mediumField" v-model="newItemValues.quantity.ammount" placeholder="1"/>
                 <select v-model="newItemValues.quantity.type" class="form__field smallField selectdiv">
                     <itemTypes/>
                 </select>
             </h2>
-            <div class="expDate">
-                <input type="date" class = "form__field dateFild" v-model="newItemValues.date">
-            </div>
+
             <div class="buttonContainer">
                 <button class="btn blue" id="btn-add" v-on:click=submitForm()>Add Item</button>
             </div>
@@ -102,23 +105,3 @@
         }
     }
 </script>
-
-<style scoped>
-    
-    .expDate {
-        position: absolute;
-        top: 1.5vh;
-        right: 2.5vw;
-        text-align: right;
-    }
-    .dateFild{
-        font-size: 1rem;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-    }
-    .creator{
-        margin-top: 10vh;
-        z-index:90;
-    }
-</style>

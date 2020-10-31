@@ -5,9 +5,12 @@
         <div class="itemCard">
             
             <div class="itemName">
-                <h6 class="noselect">{{item.type}}</h6>
+                <h6 v-show="!editName" class="noselect"> {{item.type}} </h6>
+                <h6 v-show="editName" class="noselect"> Rename </h6>
+                
                 <!-- Normal -->
                 <h2 v-show="!editName" @dblclick="toggleEditName()" class="noselect">{{item.name}}</h2>
+                
                 <!-- Edit -->
                 <h2 v-show="editName" class="editContainer">
                     <input type="text" class="form__field whiteText" ref="newNameIn" v-model="newName" onfocus="this.select();" @keyup.enter="submitNewName()" @keyup.esc="submitNewName(false)">
@@ -19,19 +22,25 @@
             </div>
             
             <div class="itemInfo">
-                
-                <div class="progressContainer noselect">
+
+                <!-- Normal -->
+                <div v-show="!editDate" class="progressContainer noselect" @dblclick="toggleEditDate()">
                     <div class="progress" v-bind:style="calculateProgresPercent(item)"></div>
                     <span class="progress-text">
                         Exp: {{getDateString(item.date.expiring)}}
                     </span>
                 </div>
 
-                <h6 class="noselect">Amount</h6>
+                <!-- Edit -->
+                <div v-show="editDate" class="expDate">
+                    <input type="date" class = "form__field dateFild" ref="newDateIn" v-model="newDate" onfocus="this.select();" @keyup.enter="submitNewDate()" @keyup.esc="submitNewDate(false)">
+                </div>
+
+                <h6 class="noselect"> Amount </h6>
                 
                 <!-- Normal -->
 
-                <h2 class="noselect" v-show="!editAmmount" @dblclick="toggleEditAmmount()">
+                <h2 v-show="!editAmmount" class="noselect" @dblclick="toggleEditAmmount()">
                     {{item.quantity.ammount}} {{item.quantity.type}}
                 </h2>
 
@@ -43,13 +52,24 @@
                             <itemTypes/>
                         </select>
                     </h2>
-                    <button class="btn red smallB" @click="submitNewAmmount(false)">X</button>
-                    <button class="btn blue smallB" @click="submitNewAmmount()">Ok</button>
+
                 </div>
                 
-                <div v-show="!editAmmount" class="buttonContainer">
+                <div v-show="!editAmmount && !editDate" class="buttonContainer">
                     <button class="btn red" @click="Delete(item)">Delete</button>
                     <button class="btn blue" @click="togleConsumeCard(item)">Consume</button>
+                </div>
+
+                <div v-show="editDate" class="buttonContainer">
+                    <span class="editNote"> Confirm Date: </span>
+                    <button class="btn red smallB" @click="submitNewDate(false)">X</button>
+                    <button class="btn blue smallB" @click="submitNewDate()">Ok</button>
+                </div>
+
+                <div v-show="editAmmount" class="buttonContainer">
+                    <span class="editNote"> Confirm Ammount: </span>
+                    <button class="btn red smallB" @click="submitNewAmmount(false)">X</button>
+                    <button class="btn blue smallB" @click="submitNewAmmount()">Ok</button>
                 </div>
             
             </div>
@@ -75,6 +95,7 @@
 
 <script>
     import itemTypes from '../helpers/itemTypes';
+    import GM from "../../Mixins/globalMixin";
 
     export default {
         name: 'Item',
@@ -88,9 +109,11 @@
                 hidden: true,
                 editName: false,
                 editAmmount: false,
+                editDate: false,
                 newName: "",
                 newAmmount: 0,
-                newType: ""
+                newType: "",
+                newDate: "" //GM.getFormatedDate(Date.now(),2).toISOString().slice(0,10)
             }
         },
         methods:{
@@ -145,6 +168,10 @@
             toggleEditName(){
                 this.newName = this.item.name
                 this.editName = !this.editName;
+
+                this.editAmmount = false;
+                this.editDate = false;
+
                 this.$refs.newNameIn.focus();
             },
             toggleEditAmmount(){
@@ -152,6 +179,16 @@
                 if(this.item.quantity.type == "Item" || this.item.quantity.type == "Items") this.newType = "";
                 else this.newType = this.item.quantity.type;
                 this.editAmmount = !this.editAmmount;
+
+                this.editName = false;
+                this.editDate = false;
+            },
+            toggleEditDate(){
+                this.newDate = GM.getFormatedDate(this.item.date.expiring,1).toISOString().slice(0,10);
+                this.editDate = !this.editDate;
+                
+                this.editName = false;
+                this.editAmmount = false;
             },
             submitNewName(confirmSubmit = true){
                 if(confirmSubmit) this.$store.commit('renameItem', {itemId: this.item.id, newName:this.newName});
@@ -160,11 +197,16 @@
             submitNewAmmount(confirmSubmit = true){
                 if(confirmSubmit) this.$store.commit('repopulateItem', {itemId: this.item.id, newAmmount:this.newAmmount, newType:this.newType});
                 this.editAmmount = !this.editAmmount;
+            },
+            submitNewDate(confirmSubmit = true){
+                if(confirmSubmit) this.$store.commit('updateDateItem', {itemId: this.item.id, newDate:this.newDate});
+                this.editDate = !this.editDate;
             }
         },
         updated: function () {
             if(this.editName) this.$refs.newNameIn.focus();
             else if(this.newAmmount) this.$refs.newAmmountIn.focus();
+            else if(this.newDate) this.$refs.newDateIn.focus();
         }
     }
 </script>
@@ -221,5 +263,16 @@
         display: flex;
         width: 3pc;
         justify-content: center;
+    }
+    .progressContainer{
+        z-index: 100;
+    }
+    .buttonContainer{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    .editNote{
+        margin-right: 0.5pc;
     }
 </style>
