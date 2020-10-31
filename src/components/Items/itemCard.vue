@@ -6,9 +6,9 @@
             
             <div class="itemName">
                 <h6 class="noselect">{{item.type}}</h6>
-                <h2 v-if="!editName" @dblclick="toggleEditName()" class="noselect">{{item.name}}</h2>
-                <h2 v-else class="editContainer">
-                    <input type="text" class="form__field whiteText" v-model="newName" autofocus onfocus="this.select();" v-on:keyup.enter="submitNewName()">
+                <h2 v-show="!editName" @dblclick="toggleEditName()" class="noselect">{{item.name}}</h2>
+                <h2 v-show="editName" class="editContainer">
+                    <input type="text" class="form__field whiteText" ref="newNameIn" v-model="newName" onfocus="this.select();" @keyup.enter="submitNewName()" @keyup.esc="submitNewName(false)">
                     <div class="editNameButtons">
                         <button class="btn grey smallB" @click="submitNewName()">Ok</button>
                         <button class="btn red smallB" @click="submitNewName(false)">X</button>
@@ -118,11 +118,15 @@
             toggleEditName(){
                 this.newName = this.item.name
                 this.editName = !this.editName;
+                this.$refs.newNameIn.focus();
             },
             submitNewName(confirmSubmit = true){
                 if(confirmSubmit) this.$store.commit('renameItem', {itemId: this.item.id, newName:this.newName});
                 this.editName = !this.editName;
             }
+        },
+        updated: function () {
+            if(this.editName) this.$refs.newNameIn.focus();
         }
     }
 </script>
