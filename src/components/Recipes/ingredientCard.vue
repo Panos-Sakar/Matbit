@@ -1,12 +1,17 @@
 <template>
     <div class="ingredient">
+        
         <i class="dot" :class="checkIngredient(ingredient)"/>
+        
         <div class="ingredientStats">
             {{ingredient.name}} | {{ingredient.ammount}} {{ingredient.type}}
         </div>
-        <div class="percentageBar">
-            <div class="fillPercent" :style="calculateProgresPercentStyle()"/>
+        <div class="progress">
+            <div class="percentageBar">
+                <div class="fillPercent" :style="calculateProgresPercentStyle()"/>
+            </div>
         </div>
+    
     </div>
 </template>
 
@@ -54,31 +59,59 @@ export default {
 
 <style scoped>
     .ingredient{
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        overflow: hidden;
+        display: grid;
+        
         width: 100%;
-        padding: 5px 15px;
+        
+        padding: 4px 0px;
+        padding-left: 5px;
+
+        grid-template-columns: 2pc auto;
+        grid-template-rows: 1.5pc 1pc;
+
+
+        grid-template-areas: 
+                            "dot stats"
+                            "dot progress"
+        ;
     }
-    .recipieItems > div:nth-of-type(odd){
-    background-color: var(--section-dark-gray-2);
-}
+
+    .dot{
+        grid-area: dot;
+        
+        align-self: center;
+        justify-self: center;
+    
+    }
+
     .ingredientStats{
-        float: left;
-        margin-right: 1pc;
-        width: fit-content;
-        flex-grow: 1;
+        grid-area: stats;
+        
+        justify-self: start;
+        align-self: end;
+        
+        width: auto;
+        
     }
+    .progress{
+        grid-area: progress;
+        
+        justify-self: start;
+        align-self: center;
+        
+        width: 90%;
+
+        margin-right: 1pc;
+    }
+    
     .percentageBar{
         position: relative;
         background-color: #ddd;
         border-radius: 3px;
         height: 5px;
         
-        width: 10pc;
-        overflow: hidden;
-        flex-grow: 2;
+        width: 100%;
+
     }
     .fillPercent{
         position: absolute;

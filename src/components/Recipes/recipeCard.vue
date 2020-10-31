@@ -108,5 +108,7 @@
     .editContainer{
         flex-flow: row;
     }
-
+    .recipieItems > div:nth-of-type(odd){
+        background-color: var(--section-dark-gray-2);
+    }
 </style>
