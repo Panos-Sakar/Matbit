@@ -52,6 +52,8 @@
     right: 3vh;
     text-align: right;
     width: 120px;
+
+    z-index: 100;
 }
 .progress {
     background-color: var(--progress-gray);
@@ -94,9 +96,12 @@
 /*Buttons*/
 
 .buttonContainer{
-    margin-left:auto; 
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
+    flex-grow: 1;
     margin-right:0;
-
 }
 
 .btn{
@@ -209,6 +214,28 @@
 .creator{
     margin-top: 10vh;
     z-index:90;
+}
+.editNote{
+    margin-right: 0.5pc;
+    text-align: right;
+    font-size: auto;
+}
+.editContainer{
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-content: flex-start;
+}
+.editNameButtons{
+    padding-top: 1pc;
+    display: flex;
+    justify-content: flex-end;
+    align-content: center;
+}
+.smallB{
+    display: flex;
+    width: 3pc;
+    justify-content: center;
 }
 
 /*Generic*/

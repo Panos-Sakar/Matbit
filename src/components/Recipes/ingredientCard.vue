@@ -59,8 +59,11 @@ export default {
         align-items: center;
         overflow: hidden;
         width: 100%;
-        margin-top: 0.5pc;
+        padding: 5px 15px;
     }
+    .recipieItems > div:nth-of-type(odd){
+    background-color: var(--section-dark-gray-2);
+}
     .ingredientStats{
         float: left;
         margin-right: 1pc;

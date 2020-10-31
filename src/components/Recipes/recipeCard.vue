@@ -11,8 +11,11 @@
 			<h2 v-show="!editName" @dblclick="toggleEditName()" class="noselect"> {{recipe.name}} </h2>
             <h2 v-show="editName" class="editContainer">
                 <input type="text" class="form__field whiteText" ref="newNameIn" v-model="newName" onfocus="this.select();" @keyup.enter="submitNewName()" @keyup.esc="submitNewName(false)">
-                <button class="btn grey smallB" @click="submitNewName()">Ok</button>
-                <button class="btn red smallB" @click="submitNewName(false)">X</button>
+                
+                <div class="buttonContainer">    
+                    <button class="btn red smallB" @click="submitNewName(false)">X</button>
+                    <button class="btn grey smallB" @click="submitNewName()">Ok</button>
+                </div>
             </h2>
             
         </div>
@@ -24,6 +27,7 @@
         </div>
         
         <div class="show cardSection greySection">
+            <h6 class="noselect">Ingredients</h6>
             <div v-if="this.showItems" class="recipieItems cardSection">
                 <ingredient v-for="ingr in recipe.items" v-bind:key="ingr.id" v-bind:ingredient="ingr"/>
             </div>
@@ -101,26 +105,8 @@
 </script>
 
 <style scoped>
-    .recipieItems{
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        flex-wrap: nowrap;
-        overflow: hidden;
-
-    }
-    .editB{ 
-        opacity: 1;
-        float: right;  
-    }
     .editContainer{
-        display: flex;
-        justify-content: flex-start;
-        align-content: center;
+        flex-flow: row;
     }
-    .smallB{
-        display: flex;
-        width: 3pc;
-        justify-content: center;
-    }
+
 </style>

@@ -15,8 +15,8 @@
                 <h2 v-show="editName" class="editContainer">
                     <input type="text" class="form__field whiteText" ref="newNameIn" v-model="newName" onfocus="this.select();" @keyup.enter="submitNewName()" @keyup.esc="submitNewName(false)">
                     <div class="editNameButtons">
-                        <button class="btn grey smallB" @click="submitNewName()">Ok</button>
                         <button class="btn red smallB" @click="submitNewName(false)">X</button>
+                        <button class="btn grey smallB" @click="submitNewName()">Ok</button>
                     </div>
                 </h2>
             </div>
@@ -67,7 +67,7 @@
                 </div>
 
                 <div v-show="editAmmount" class="buttonContainer">
-                    <span class="editNote"> Confirm Ammount: </span>
+                    <span class="editNote"> Confirm Quantity: </span>
                     <button class="btn red smallB" @click="submitNewAmmount(false)">X</button>
                     <button class="btn blue smallB" @click="submitNewAmmount()">Ok</button>
                 </div>
@@ -78,15 +78,16 @@
         
         <transition name="fade">
             
-            <div v-if = "!this.hidden" class="consumeCard">
-                <input type="text" class="form__field xtrSmallField consumeInput" v-model="consumeValue" placeholder= 0>
+            <div v-show="!consumeHidden" class="consumeCard">
+                <input type="text" class="form__field xtrSmallField consumeInput" ref="consumeIn" onfocus="this.select();" v-model="consumeValue" placeholder= 0  @keyup.enter="Consume(item)">
                 <h2> {{item.quantity.type}} </h2>
-                <div class="buttonContainer">
+                <div class="buttonContainer floatBRight">
+                    <button class="btn red" id="btn-cancelConsume" @click="togleConsumeCard()">Cancel</button>
                     <button class="btn blue" id="btn-confirmConsume" @click="Consume(item)">Ok</button>
-                    <button class="btn blue" id="btn-cancelConsume" @click="togleConsumeCard()">Cancel</button>
                 </div>
             
             </div>
+
         </transition>
 
     </div>
@@ -106,7 +107,7 @@
         data(){
             return{
                 consumeValue: 1,
-                hidden: true,
+                consumeHidden: true,
                 editName: false,
                 editAmmount: false,
                 editDate: false,
@@ -127,9 +128,11 @@
                 this.$store.commit('consumeItem', { consumeItem:item,  ammount: this.consumeValue });
 
                 this.togleConsumeCard()
+
+                this.$refs.consumeIn.focus();
             },
             togleConsumeCard(){
-                this.hidden = !this.hidden;
+                this.consumeHidden = !this.consumeHidden;
                 this.consumeValue = 1;
             },
 
@@ -246,33 +249,5 @@
             transform: translateX(-10vw) scale(0.8);
             opacity: 0;
         }
-    }
-    .editContainer{
-        display: flex;
-        flex-flow: column;
-        justify-content: flex-start;
-        align-content: flex-start;
-    }
-    .editNameButtons{
-        padding-top: 1pc;
-        display: flex;
-        justify-content: flex-end;
-        align-content: center;
-    }
-    .smallB{
-        display: flex;
-        width: 3pc;
-        justify-content: center;
-    }
-    .progressContainer{
-        z-index: 100;
-    }
-    .buttonContainer{
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-    }
-    .editNote{
-        margin-right: 0.5pc;
     }
 </style>
