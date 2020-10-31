@@ -116,6 +116,19 @@ const store = createStore({
       state.items[index].name = newName;
       saveItemsToJson(state);
     },
+    repopulateItem(state,{itemId, newAmmount, newType}){
+      var index = state.items.findIndex(item => item.id == itemId);
+
+      var ammountFloat = parseFloat(newAmmount);
+      if(!isNaN(ammountFloat) && ammountFloat>0){
+
+        state.items[index].quantity.ammount = ammountFloat;
+        if(newType == "") newType = "Item" + (( ammountFloat == 1)? "":"s");
+        state.items[index].quantity.type = newType;
+      } 
+
+      saveItemsToJson(state);
+    },
 
     /*Recipe Functins*/
 

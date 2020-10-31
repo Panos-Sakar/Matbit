@@ -6,7 +6,9 @@
             
             <div class="itemName">
                 <h6 class="noselect">{{item.type}}</h6>
+                <!-- Normal -->
                 <h2 v-show="!editName" @dblclick="toggleEditName()" class="noselect">{{item.name}}</h2>
+                <!-- Edit -->
                 <h2 v-show="editName" class="editContainer">
                     <input type="text" class="form__field whiteText" ref="newNameIn" v-model="newName" onfocus="this.select();" @keyup.enter="submitNewName()" @keyup.esc="submitNewName(false)">
                     <div class="editNameButtons">
@@ -24,11 +26,28 @@
                         Exp: {{getDateString(item.date.expiring)}}
                     </span>
                 </div>
-                
+
                 <h6 class="noselect">Amount</h6>
-                <h2>{{item.quantity.ammount}} {{item.quantity.type}}</h2>
                 
-                <div class="buttonContainer">
+                <!-- Normal -->
+
+                <h2 class="noselect" v-show="!editAmmount" @dblclick="toggleEditAmmount()">
+                    {{item.quantity.ammount}} {{item.quantity.type}}
+                </h2>
+
+                <!-- Edit -->
+                <div v-show="editAmmount">
+                    <h2>
+                        <input type="text" class="form__field smallField" ref="newAmmountIn" v-model="newAmmount" onfocus="this.select();" @keyup.enter="submitNewAmmount()" @keyup.esc="submitNewAmmount(false)"/>
+                        <select class="form__field smallField selectdiv" v-model="newType" @keyup.enter="submitNewAmmount()" @keyup.esc="submitNewAmmount(false)">
+                            <itemTypes/>
+                        </select>
+                    </h2>
+                    <button class="btn red smallB" @click="submitNewAmmount(false)">X</button>
+                    <button class="btn blue smallB" @click="submitNewAmmount()">Ok</button>
+                </div>
+                
+                <div v-show="!editAmmount" class="buttonContainer">
                     <button class="btn red" @click="Delete(item)">Delete</button>
                     <button class="btn blue" @click="togleConsumeCard(item)">Consume</button>
                 </div>
@@ -55,15 +74,23 @@
 </template>
 
 <script>
+    import itemTypes from '../helpers/itemTypes';
+
     export default {
         name: 'Item',
+        components:{
+            itemTypes
+        },
         props:["item"],
         data(){
             return{
                 consumeValue: 1,
                 hidden: true,
                 editName: false,
-                newName: ""
+                editAmmount: false,
+                newName: "",
+                newAmmount: 0,
+                newType: ""
             }
         },
         methods:{
@@ -120,13 +147,24 @@
                 this.editName = !this.editName;
                 this.$refs.newNameIn.focus();
             },
+            toggleEditAmmount(){
+                this.newAmmount = this.item.quantity.ammount;
+                if(this.item.quantity.type == "Item" || this.item.quantity.type == "Items") this.newType = "";
+                else this.newType = this.item.quantity.type;
+                this.editAmmount = !this.editAmmount;
+            },
             submitNewName(confirmSubmit = true){
                 if(confirmSubmit) this.$store.commit('renameItem', {itemId: this.item.id, newName:this.newName});
                 this.editName = !this.editName;
+            },
+            submitNewAmmount(confirmSubmit = true){
+                if(confirmSubmit) this.$store.commit('repopulateItem', {itemId: this.item.id, newAmmount:this.newAmmount, newType:this.newType});
+                this.editAmmount = !this.editAmmount;
             }
         },
         updated: function () {
             if(this.editName) this.$refs.newNameIn.focus();
+            else if(this.newAmmount) this.$refs.newAmmountIn.focus();
         }
     }
 </script>
@@ -181,7 +219,7 @@
     }
     .smallB{
         display: flex;
-        width: 45%;
+        width: 3pc;
         justify-content: center;
     }
 </style>

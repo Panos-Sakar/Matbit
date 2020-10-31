@@ -15,8 +15,8 @@
 			<h2 v-show="!editName" @dblclick="toggleEditName()" class="noselect"> {{recipe.name}} </h2>
             <h2 v-show="editName" class="editContainer">
                 <input type="text" class="form__field whiteText" ref="newNameIn" v-model="newName" onfocus="this.select();" @keyup.enter="submitNewName()" @keyup.esc="submitNewName(false)">
-                <button class="btn grey" @click="submitNewName()">Ok</button>
-                <button class="btn red" @click="submitNewName(false)">X</button>
+                <button class="btn grey smallB" @click="submitNewName()">Ok</button>
+                <button class="btn red smallB" @click="submitNewName(false)">X</button>
             </h2>
             
         </div>
@@ -121,5 +121,10 @@
         display: flex;
         justify-content: flex-start;
         align-content: center;
+    }
+    .smallB{
+        display: flex;
+        width: 3pc;
+        justify-content: center;
     }
 </style>

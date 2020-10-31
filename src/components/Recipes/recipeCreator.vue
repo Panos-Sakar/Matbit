@@ -23,12 +23,12 @@
             <!-- <i class="arrow" :class="['down']"/> -->
             <h6 class="noselect">Added Items</h6>
             <ul class="recipieItems cardSection">
-                <li class="newItem" v-for="item in addedItems" v-bind:key="item.id">
+                <li class="newItem" v-for="item in addedItems" v-bind:key="item.id" @mouseover="hoverOver(item)" @mouseleave="leaveOver(item)">
                     <i class="dot"/>
                     <div class="newItemInfo">
                         {{item.name}} | {{item.ammount}} {{item.type}}
                     </div>
-                    <button class="btn red resetFloat smallButton" @click="removeItem(item)">-</button>
+                    <button v-show="removeBs[item.index]" class="btn red resetFloat smallButton" @click="removeItem(item)">-</button>
                 </li>
             </ul> 
         </div>
@@ -44,7 +44,6 @@
 <script>
     import { uuid } from 'vue-uuid';
     import itemTypes from '../helpers/itemTypes';
-    // eslint-disable-next-line no-unused-vars
     import GM from "../../Mixins/globalMixin";
 
     function newRecipeTemplate(){
@@ -73,7 +72,8 @@
             return{
                 newRecipeValues: newRecipeTemplate(),
                 addItemValues: addItemTemplate(),
-                addedItems:[]
+                addedItems:[],
+                removeBs: []
             }
         },
         methods:{
@@ -91,7 +91,7 @@
                 this.newRecipeValues = newRecipeTemplate();
                 this.addItemValues = addItemTemplate();
                 this.addedItems = [];
-
+                this.removeBs = [];
 
                 if(newRecipe.items.length > 0) this.$store.commit('addRecipe', newRecipe);
 
@@ -100,6 +100,7 @@
                 let newItem = {};
 
                 newItem.id = uuid.v4();
+                newItem.index = this.addedItems.length;
 
                 newItem.name = this.addItemValues.name;
                 if(newItem.name == "") newItem.name = "New Item";
@@ -114,7 +115,10 @@
                 
                 var index = this.addedItems.findIndex(item => (item.name == newItem.name) && (GM.compareTypes(item.type, newItem.type)));
 
-                if(index < 0) this.addedItems.push(newItem);
+                if(index < 0){
+                    this.removeBs.push(false)
+                    this.addedItems.push(newItem);
+                } 
                 else this.addedItems[index].ammount += newItem.ammount;
 
                 this.addItemValues = addItemTemplate();
@@ -124,6 +128,16 @@
             removeItem(itemToRemove){
                 var index = this.addedItems.findIndex(item => (item.id === itemToRemove.id));
                 this.addedItems.splice(index,1);
+
+                for (let i = index; i < this.addedItems.length; i++) this.addedItems[i].index--;
+                for (let i = 0; i < this.removeBs.length; i++) this.removeBs[i] = false;
+
+            },
+            hoverOver(item){
+                this.removeBs[item.index] = true;
+            },
+            leaveOver(item){
+                this.removeBs[item.index] = false;
             }
         }
     }
