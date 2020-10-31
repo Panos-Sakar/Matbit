@@ -6,7 +6,14 @@
             
             <div class="itemName">
                 <h6 class="noselect">{{item.type}}</h6>
-                <h2>{{item.name}}</h2>
+                <h2 v-if="!editName" @dblclick="toggleEditName()" class="noselect">{{item.name}}</h2>
+                <h2 v-else class="editContainer">
+                    <input type="text" class="form__field whiteText" v-model="newName" autofocus onfocus="this.select();" v-on:keyup.enter="submitNewName()">
+                    <div class="editNameButtons">
+                        <button class="btn grey smallB" @click="submitNewName()">Ok</button>
+                        <button class="btn red smallB" @click="submitNewName(false)">X</button>
+                    </div>
+                </h2>
             </div>
             
             <div class="itemInfo">
@@ -54,7 +61,9 @@
         data(){
             return{
                 consumeValue: 1,
-                hidden: true
+                hidden: true,
+                editName: false,
+                newName: ""
             }
         },
         methods:{
@@ -105,6 +114,14 @@
                 if(percentDate<0) percentDate = 0;
 
                 return percentDate;
+            },
+            toggleEditName(){
+                this.newName = this.item.name
+                this.editName = !this.editName;
+            },
+            submitNewName(confirmSubmit = true){
+                if(confirmSubmit) this.$store.commit('renameItem', {itemId: this.item.id, newName:this.newName});
+                this.editName = !this.editName;
             }
         }
     }
@@ -146,5 +163,21 @@
             opacity: 0;
         }
     }
-
+    .editContainer{
+        display: flex;
+        flex-flow: column;
+        justify-content: flex-start;
+        align-content: flex-start;
+    }
+    .editNameButtons{
+        padding-top: 1pc;
+        display: flex;
+        justify-content: flex-end;
+        align-content: center;
+    }
+    .smallB{
+        display: flex;
+        width: 45%;
+        justify-content: center;
+    }
 </style>

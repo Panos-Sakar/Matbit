@@ -111,6 +111,11 @@ const store = createStore({
 
       saveItemsToJson(state);
     },
+    renameItem(state,{itemId, newName}){
+      var index = state.items.findIndex(item => item.id == itemId);
+      state.items[index].name = newName;
+      saveItemsToJson(state);
+    },
 
     /*Recipe Functins*/
 
