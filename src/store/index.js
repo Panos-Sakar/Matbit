@@ -142,6 +142,11 @@ const store = createStore({
       recipe.items.forEach(itemInRecipe => {
         drainItem(state, itemInRecipe);
       });
+    },
+    renameRecipe(state,{recipeId, newName}){
+      var index = state.recipes.findIndex(recipe => recipe.id == recipeId);
+      state.recipes[index].name = newName;
+      saveRecipesToJson(state);
     }
   }
 
