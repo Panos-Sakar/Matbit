@@ -5,19 +5,14 @@
         <div class="itemCard">
             
             <div class="itemName">
-                <h6 v-show="!editName" class="noselect"> {{item.type}} </h6>
-                <h6 v-show="editName" class="noselect"> Rename </h6>
+                <h6 class="noselect"> {{item.type}} </h6>
                 
                 <!-- Normal -->
-                <h2 v-show="!editName" @dblclick="toggleEditName()" class="noselect">{{item.name}}</h2>
+                <h2 v-show="!editName" @dblclick="toggleEditName()" class="noselect formPadding">{{item.name}}</h2>
                 
                 <!-- Edit -->
                 <h2 v-show="editName" class="editContainer">
-                    <input type="text" class="form__field whiteText" ref="newNameIn" v-model="newName" onfocus="this.select();" @keyup.enter="submitNewName()" @keyup.esc="submitNewName(false)">
-                    <div class="editNameButtons">
-                        <button class="btn red smallB" @click="submitNewName(false)">X</button>
-                        <button class="btn grey smallB" @click="submitNewName()">Ok</button>
-                    </div>
+                    <input type="text" class="form__field whiteText mediumField" ref="newNameIn" v-model="newName" onfocus="this.select();" @keyup.enter="submitNewName()" @keyup.esc="submitNewName(false)">
                 </h2>
             </div>
             
@@ -40,7 +35,7 @@
                 
                 <!-- Normal -->
 
-                <h2 v-show="!editAmmount" class="noselect" @dblclick="toggleEditAmmount()">
+                <h2 v-show="!editAmmount" class="noselect formPadding" @dblclick="toggleEditAmmount()">
                     {{item.quantity.ammount}} {{item.quantity.type}}
                 </h2>
 
@@ -55,21 +50,27 @@
 
                 </div>
                 
-                <div v-show="!editAmmount && !editDate" class="buttonContainer">
+                <div v-show="!editAmmount && !editDate && !editName" class="buttonContainer">
                     <button class="btn red" @click="Delete(item)">Delete</button>
                     <button class="btn blue" @click="togleConsumeCard(item)">Consume</button>
                 </div>
 
                 <div v-show="editDate" class="buttonContainer">
-                    <span class="editNote"> Confirm Date: </span>
+                    <span class="editNote"> Confirm Edit: </span>
                     <button class="btn red smallB" @click="submitNewDate(false)">X</button>
                     <button class="btn blue smallB" @click="submitNewDate()">Ok</button>
                 </div>
 
                 <div v-show="editAmmount" class="buttonContainer">
-                    <span class="editNote"> Confirm Quantity: </span>
+                    <span class="editNote"> Confirm Edit: </span>
                     <button class="btn red smallB" @click="submitNewAmmount(false)">X</button>
                     <button class="btn blue smallB" @click="submitNewAmmount()">Ok</button>
+                </div>
+                
+                <div v-show="editName" class="buttonContainer">
+                    <span class="editNote"> Confirm Edit: </span>
+                    <button class="btn red smallB" @click="submitNewName(false)">X</button>
+                    <button class="btn blue smallB" @click="submitNewName()">Ok</button>
                 </div>
             
             </div>
@@ -169,7 +170,7 @@
                 return percentDate;
             },
             toggleEditName(){
-                this.newName = this.item.name
+                this.newName = this.item.name;
                 this.editName = !this.editName;
 
                 this.editAmmount = false;
@@ -249,5 +250,8 @@
             transform: translateX(-10vw) scale(0.8);
             opacity: 0;
         }
+    }
+    .mediumField{
+        width: 90%;
     }
 </style>

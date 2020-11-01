@@ -18,7 +18,7 @@ const store = createStore({
     getItemByName: (state) => (itemName, itemType) =>{
       var matchingItems = state.items.filter(item => item.name == itemName && GM.compareTypes(item.quantity.type, itemType));
       
-      if(matchingItems.length == 0) return { "ammount": 0 , expAmmount: 0, "type": "items"}
+      if(matchingItems.length == 0) return { "ammount": 0 , expAmmount: 0, "type": "items"};
       
       let ammountSum = 0;
       let expAmmountSum = 0;
@@ -175,6 +175,23 @@ const store = createStore({
       var index = state.recipes.findIndex(recipe => recipe.id == recipeId);
       state.recipes[index].name = newName;
       saveRecipesToJson(state);
+    },
+    updateRecipeItem(state,ctx){
+      var recipeIndex = state.recipes.findIndex(recipe => recipe.id == ctx.recipeId);
+      var itemIndex = state.recipes[recipeIndex].items.findIndex(item => item.id == ctx.itemId);
+      
+      state.recipes[recipeIndex].items[itemIndex].name = ctx.newName;
+
+      var ammountFloat = parseFloat(ctx.newAmmount);
+      if(!isNaN(ammountFloat) && ammountFloat>0){
+
+        state.recipes[recipeIndex].items[itemIndex].ammount = ammountFloat;
+
+        if(ctx.newType == "") ctx.newType = "Item" + (( ammountFloat == 1)? "":"s");
+        state.recipes[recipeIndex].items[itemIndex].type = ctx.newType;
+      } 
+
+      saveRecipesToJson(state);
     }
   }
 
@@ -261,12 +278,11 @@ function drainItem(state, itemToDrain){
     
     drainQuantity -= ammountInItem;
 
-    if(item.quantity.ammount >  0){ return false; }
+    if(item.quantity.ammount >  0) { return false; }
     
-    if(item.quantity.ammount == 0){ removeItemFromState(state, item); return false; }
+    if(item.quantity.ammount == 0) { removeItemFromState(state, item); return false; }
     
-    if(item.quantity.ammount <  0){ removeItemFromState(state, item); return true; }
-
+    if(item.quantity.ammount <  0) { removeItemFromState(state, item); return true; }
   });
 
   saveItemsToJson(state);

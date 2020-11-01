@@ -73,14 +73,15 @@
                 newRecipeValues: newRecipeTemplate(),
                 addItemValues: addItemTemplate(),
                 addedItems:[],
-                removeBs: []
+                removeBs: [],
+                recipeId: uuid.v4()
             }
         },
         methods:{
             submitForm(){
                 let newRecipe = {};
                 
-                newRecipe.id = uuid.v4();
+                newRecipe.id = this.recipeId;
 
                 newRecipe.name = this.newRecipeValues.name;
                 if(newRecipe.name == "") newRecipe.name = "New Recipe";
@@ -92,13 +93,14 @@
                 this.addItemValues = addItemTemplate();
                 this.addedItems = [];
                 this.removeBs = [];
-
+                this.recipeId = uuid.v4();
+                
                 if(newRecipe.items.length > 0) this.$store.commit('addRecipe', newRecipe);
 
             },
             addItem(){
                 let newItem = {};
-
+                newItem.recipeId = this.recipeId;
                 newItem.id = uuid.v4();
                 newItem.index = this.addedItems.length;
 
@@ -116,7 +118,7 @@
                 var index = this.addedItems.findIndex(item => (item.name == newItem.name) && (GM.compareTypes(item.type, newItem.type)));
 
                 if(index < 0){
-                    this.removeBs.push(false)
+                    this.removeBs.push(false);
                     this.addedItems.push(newItem);
                 } 
                 else this.addedItems[index].ammount += newItem.ammount;

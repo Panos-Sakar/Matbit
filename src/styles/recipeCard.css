@@ -22,7 +22,9 @@
     letter-spacing: 1px;
     margin: 0.5pc 0;
 }
-
+.buttonPadding{
+    padding-bottom: 4px;
+}
 .cardSection{
     padding: 1.2vh 2vh;
     width: 100%;

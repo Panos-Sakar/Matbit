@@ -15,7 +15,6 @@
                 </div>
             </div>
         
-        
         </div>
 
         <div v-show="editItem" class="inputContainer">
@@ -63,11 +62,12 @@ export default {
             
             var ingredientAmmountAll = this.ingrStorage.ammount + this.ingrStorage.expAmmount;
             
-            if(ingredientAmmountAll >= ingredientInRecipe.ammount) return 1;
-            if(ingredientAmmountAll < ingredientInRecipe.ammount && ingredientAmmountAll > 0){
-                return ingredientAmmountAll/ingredientInRecipe.ammount;
-            }
-            if(ingredientAmmountAll <= 0) return 0;
+            if(ingredientAmmountAll >= ingredientInRecipe.ammount) 
+                { return 1; }
+            if(ingredientAmmountAll < ingredientInRecipe.ammount && ingredientAmmountAll > 0) 
+                { return ingredientAmmountAll/ingredientInRecipe.ammount; }
+            if(ingredientAmmountAll <= 0) 
+                { return 0;}
         },
         calculateProgresPercentStyle(){
             let progPercent = this.percentage;
@@ -76,7 +76,7 @@ export default {
             let percentColor = "#5f1919"; 
             if(progPercent >= 100) percentColor = "#2A265F";
             
-            return{'width': percentStr, '--fill-color': percentColor }
+            return{'width': percentStr, '--fill-color': percentColor };
         },
         toggleEdit(){
             this.newName = this.ingredient.name;
@@ -87,7 +87,16 @@ export default {
             this.editItem = !this.editItem;
         },
         submitEdit(confirmSubmit = true){
-            if(confirmSubmit) console.log("New: " + this.newName + " | " + this.newAmmount + " " + this.newType) //this.$store.commit();
+            if(/^ *$/.test(this.newName) || this.newName=="") this.newName = this.ingredient.name;
+            
+            if(confirmSubmit) this.$store.commit('updateRecipeItem', {
+                                                                    recipeId: this.ingredient.recipeId, 
+                                                                    itemId:this.ingredient.id,
+                                                                    newName: this.newName,
+                                                                    newAmmount:this.newAmmount,
+                                                                    newType: this.newType
+            });
+
             this.editItem = !this.editItem;
         }
     }

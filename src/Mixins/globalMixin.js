@@ -1,4 +1,4 @@
-const APP_VERSION = 0.1;
+const APP_VERSION = 0.2;
 
 const ITEMS_STORAGE_KEY = "items-storage";
 const RECIPES_STORAGE_KEY = "recipes-storage";

@@ -8,9 +8,9 @@
 			<h6 v-show="!editName" class="noselect"> Recipe </h6>
             <h6 v-show="editName" class="noselect"> Rename </h6>
 
-			<h2 v-show="!editName" @dblclick="toggleEditName()" class="noselect"> {{recipe.name}} </h2>
+			<h2 v-show="!editName" @dblclick="toggleEditName()" class="noselect buttonPadding"> {{recipe.name}} </h2>
             <h2 v-show="editName" class="editContainer">
-                <input type="text" class="form__field whiteText" ref="newNameIn" v-model="newName" onfocus="this.select();" @keyup.enter="submitNewName()" @keyup.esc="submitNewName(false)">
+                <input type="text" class="form__field whiteText mediumField" ref="newNameIn" v-model="newName" onfocus="this.select();" @keyup.enter="submitNewName()" @keyup.esc="submitNewName(false)">
                 
                 <div class="buttonContainer">    
                     <button class="btn red smallB" @click="submitNewName(false)">X</button>
@@ -68,11 +68,11 @@
                 this.$forceUpdate();
             },
             isReady(){
-                this.checkIngridientStatus(this.recipe)
+                this.checkIngridientStatus(this.recipe);
                 return this.recipe.isReady;
             },
             isReadyWithExp(){
-                this.checkIngridientStatus(this.recipe)
+                this.checkIngridientStatus(this.recipe);
                 return this.recipe.isReadyWithExp;
             },
             checkIngridientStatus(recipe){
@@ -85,14 +85,15 @@
                 if(recipe.isReady) this.$store.commit('executeRecipe', recipe);
             },
             editRecipe(recipe){
-                console.log("Editing " + recipe.name)
+                console.log("Editing " + recipe.name);
             },
             toggleEditName(){
-                this.newName = this.recipe.name
+                this.newName = this.recipe.name;
                 this.editName = !this.editName;
                 
             },
             submitNewName(confirmSubmit = true){
+                if(/^ *$/.test(this.newName) || this.newName=="") this.newName = this.recipe.name;
                 if(confirmSubmit) this.$store.commit('renameRecipe', {recipeId: this.recipe.id, newName:this.newName});
                 this.editName = !this.editName;
             }
