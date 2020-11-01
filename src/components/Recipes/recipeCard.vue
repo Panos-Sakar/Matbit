@@ -93,7 +93,7 @@
                 
             },
             submitNewName(confirmSubmit = true){
-                if(/^ *$/.test(this.newName) || this.newName=="") this.newName = this.recipe.name;
+                if(/^ *$/.test(this.newName)) this.newName = this.recipe.name;
                 if(confirmSubmit) this.$store.commit('renameRecipe', {recipeId: this.recipe.id, newName:this.newName});
                 this.editName = !this.editName;
             }

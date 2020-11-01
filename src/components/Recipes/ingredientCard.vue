@@ -18,9 +18,9 @@
         </div>
 
         <div v-show="editItem" class="inputContainer">
-            <input type="text" class="form__field xtrSmallField" v-model="newName" onfocus="this.select();">
-            <input type="text" class="form__field xxtrSmallField" v-model="newAmmount" onfocus="this.select();"/>
-            <select v-model="newType" class="form__field xtrSmallField selectdiv">
+            <input type="text" class="form__field xtrSmallField" ref="ingrNameIn" v-model="newName" onfocus="this.select();" @keyup.enter="submitEdit()" @keyup.esc="submitEdit(false)"/>
+            <input type="text" class="form__field xxtrSmallField" v-model="newAmmount" onfocus="this.select();" @keyup.enter="submitEdit()" @keyup.esc="submitEdit(false)"/>
+            <select v-model="newType" class="form__field xtrSmallField selectdiv" @keyup.enter="submitEdit()" @keyup.esc="submitEdit(false)">
                 <itemTypes/>
             </select>
             <button class="btn red FloatBRight smallB" @click="toggleEdit()">X</button>
@@ -76,7 +76,7 @@ export default {
             let percentColor = "#5f1919"; 
             if(progPercent >= 100) percentColor = "#2A265F";
             
-            return{'width': percentStr, '--fill-color': percentColor };
+            return{ 'width': percentStr, '--fill-color': percentColor };
         },
         toggleEdit(){
             this.newName = this.ingredient.name;
@@ -87,7 +87,7 @@ export default {
             this.editItem = !this.editItem;
         },
         submitEdit(confirmSubmit = true){
-            if(/^ *$/.test(this.newName) || this.newName=="") this.newName = this.ingredient.name;
+            if(/^ *$/.test(this.newName)) this.newName = this.ingredient.name;
             
             if(confirmSubmit) this.$store.commit('updateRecipeItem', {
                                                                     recipeId: this.ingredient.recipeId, 
@@ -98,6 +98,10 @@ export default {
             });
 
             this.editItem = !this.editItem;
+        },
+        updated: function () {
+            if(this.editItem) this.$refs.ingrNameIn.focus();
+            console.log("test")
         }
     }
 }

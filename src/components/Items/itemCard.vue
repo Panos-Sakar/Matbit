@@ -195,6 +195,7 @@
                 this.editAmmount = false;
             },
             submitNewName(confirmSubmit = true){
+                if(/^ *$/.test(this.newName)) this.newName = this.item.name;
                 if(confirmSubmit) this.$store.commit('renameItem', {itemId: this.item.id, newName:this.newName});
                 this.editName = !this.editName;
             },
