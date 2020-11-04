@@ -111,7 +111,7 @@
     border: 0;
     margin: 0vh 0.5vw;
     border-radius: 50px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
     color: var(--white);
     font-size: 0.8pc;
     padding: 0.5pc 1.5pc;
@@ -120,11 +120,11 @@
     float: right;
 }
 .btn:hover{
-    box-shadow: 0 13px 13px rgba(0, 0, 0, 0.4);
-    transform:scale(1.1,1.1);
+    box-shadow: 0 7px 7px rgba(0, 0, 0, 0.4);
+    transform:scale(1.05,1.05);
 }
 .btn:active{
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
     transform:scale(0.95,0.95);
 }
 
@@ -246,6 +246,10 @@
     display: flex;
     width: 3pc;
     justify-content: center;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+}
+.smallB:hover{
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
 }
 
 /*Generic*/
